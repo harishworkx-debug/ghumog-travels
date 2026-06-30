@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useRouter } from '../lib/router';
 import { HOTEL_CATEGORIES, WHATSAPP, PHONE_TEL } from '../lib/data';
+import FavIcon  from "../assets/favicon.png";
 import { Menu, X, ChevronDown, Phone, Mountain, Home, Bus, Package, Newspaper, Video, Mail } from 'lucide-react';
 
 const NAV = [
@@ -46,7 +47,7 @@ export function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-forest-600 to-forest-900 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-              <Mountain size={20} className="text-gold-300" />
+              <img src={FavIcon} alt="GhumoG Logo" className="w-10 h-10 rounded border-2 border-black" />
             </div>
             <div className="leading-none">
               <span className={`block font-serif text-xl font-bold tracking-tight ${scrolled ? 'text-forest-900' : 'text-white'}`}>GhumoG</span>
