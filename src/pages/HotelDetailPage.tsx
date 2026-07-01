@@ -1,12 +1,25 @@
 import { PageHero, CtaBanner } from '../components/ui';
 import { Reveal } from '../components/Reveal';
+import { Gallery } from '../components/Gallery';
 import { Link } from '../lib/router';
-import { HOTELS, WHATSAPP, PHONE_TEL } from '../lib/data';
-import { Star, MapPin, Check, ArrowRight, Wifi, Coffee, Car, Flame, Mountain, Utensils } from 'lucide-react';
+import { HOTELS, WHATSAPP, PHONE_TEL, TAGLINES } from '../lib/data';
+import { Star, MapPin, Check, ArrowRight, Wifi, Coffee, Car, Flame, Mountain, Utensils, ShieldCheck, Home, Trees, Sparkles } from 'lucide-react';
 
 const amenityIcon: Record<string, typeof Wifi> = {
   'Free WiFi': Wifi, 'Breakfast': Coffee, 'Parking': Car, 'Bonfire': Flame,
   'Mountain View': Mountain, 'Heater': Flame, 'Room Service': Utensils, 'Restaurant': Utensils,
+  'Homely Food on Request': Utensils, 'Free Parking': Car, 'Hot Water': Flame, 'Meals': Utensils,
+  'Nature Views': Mountain, 'Swimming Pool': Mountain, 'Peaceful Stay': Sparkles,
+};
+
+const highlightIcon: Record<string, typeof Wifi> = {
+  'Scenic Views': Mountain, 'Premium Stay': Sparkles, 'Wooden Rooms': Home, 'Terrace Rooms': Home,
+  'Comfort & Luxury': Sparkles, 'Peaceful Stay': Sparkles, 'Family & Couple Friendly': Home,
+  'Homely Hospitality': Home, 'Homely Food on Request': Utensils, 'Bonfire on Request': Flame,
+  'Free Parking': Car, 'Safe & Secure Environment': ShieldCheck, 'Best Budget Options': Check,
+  'Special Discounts': Check, 'Safe, Reliable & Trusted': ShieldCheck,
+  'Camping Experience': Trees, 'Swimming Pool': Mountain, 'Nature Views': Mountain,
+  'Outdoor Stay': Trees, 'Comfortable Rooms': Home,
 };
 
 export function HotelDetailPage({ slug }: { slug: string }) {
@@ -19,7 +32,7 @@ export function HotelDetailPage({ slug }: { slug: string }) {
     <div>
       <PageHero
         title={hotel.name}
-        subtitle={hotel.location}
+        subtitle={`${hotel.location} · ${hotel.tagline}`}
         image={hotel.image}
         breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Hotels', to: '/hotels' }, { label: hotel.name }]}
       />
@@ -29,16 +42,35 @@ export function HotelDetailPage({ slug }: { slug: string }) {
           {/* Main */}
           <div className="lg:col-span-2">
             <Reveal>
-              <div className="flex items-center gap-4 mb-6">
+              <div className="flex flex-wrap items-center gap-4 mb-6">
                 <div className="flex items-center gap-1.5 glass px-3 py-1.5 rounded-full text-sm font-semibold text-forest-800">
                   <Star size={14} className="fill-gold-500 text-gold-500" /> {hotel.rating}
                 </div>
                 <div className="flex items-center gap-1.5 text-sm text-forest-600">
                   <MapPin size={14} /> {hotel.location}
                 </div>
+                <div className="text-sm font-serif italic text-gold-700">{hotel.tagline}</div>
               </div>
               <p className="text-lg text-forest-700 leading-relaxed mb-8">{hotel.description}</p>
+            </Reveal>
 
+            {/* Highlights */}
+            <Reveal>
+              <h2 className="text-2xl font-serif font-semibold text-forest-900 mb-5">Highlights</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-10">
+                {hotel.highlights.map((h) => {
+                  const Icon = highlightIcon[h] || Check;
+                  return (
+                    <div key={h} className="flex items-center gap-2.5 glass rounded-xl px-4 py-3 text-sm text-forest-800">
+                      <Icon size={16} className="text-gold-600 shrink-0" /> {h}
+                    </div>
+                  );
+                })}
+              </div>
+            </Reveal>
+
+            {/* Amenities */}
+            <Reveal>
               <h2 className="text-2xl font-serif font-semibold text-forest-900 mb-5">Amenities</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-10">
                 {hotel.amenities.map((a) => {
@@ -50,12 +82,22 @@ export function HotelDetailPage({ slug }: { slug: string }) {
                   );
                 })}
               </div>
+            </Reveal>
 
-              <h2 className="text-2xl font-serif font-semibold text-forest-900 mb-5">About This Stay</h2>
+            {/* Gallery */}
+            <Reveal>
+              <h2 className="text-2xl font-serif font-semibold text-forest-900 mb-2">Photo Gallery</h2>
+              <p className="text-sm text-forest-500 mb-6">Click any photo to view full screen · Use arrow keys to navigate · Click image to zoom</p>
+              <Gallery images={hotel.gallery} categories={hotel.galleryCategories} title={hotel.name} />
+            </Reveal>
+
+            {/* About */}
+            <Reveal>
+              <h2 className="text-2xl font-serif font-semibold text-forest-900 mb-5 mt-12">About This Stay</h2>
               <div className="space-y-4 text-forest-700 leading-relaxed">
-                <p>Nestled in the heart of {hotel.location}, {hotel.name} offers a serene retreat far from the noise of city life. Wake up to birdsong and misty mountain views, spend your days exploring nearby trails, and unwind by a warm bonfire under star-filled skies.</p>
+                <p>Nestled in {hotel.location}, {hotel.name} offers a serene retreat far from the noise of city life. {hotel.tagline} — this is more than a slogan, it is how we host every guest.</p>
                 <p>Our property is designed for comfort and tranquility, with thoughtfully appointed rooms, attentive hospitality, and authentic local cuisine. Whether you're seeking adventure or simply a peaceful escape, {hotel.name} is your perfect Himalayan home base.</p>
-                <p>As part of the GhumoG family, we can arrange local sightseeing, trekking, taxi services, and bike rentals to make your stay effortless. Just ask — we're here to help you explore.</p>
+                <p>As part of the GhumoG family, we can arrange local sightseeing, trekking, taxi services, and bike rentals to make your stay effortless. {TAGLINES.family} — just ask, we're here to help you explore.</p>
               </div>
             </Reveal>
           </div>

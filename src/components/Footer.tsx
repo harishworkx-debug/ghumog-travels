@@ -1,6 +1,6 @@
 import { Link } from '../lib/router';
 import { Mountain, Phone, Mail, MapPin, Youtube, Facebook, Instagram, ArrowRight } from 'lucide-react';
-import { WHATSAPP, PHONE, EMAIL, MAP_LINK, HOTEL_CATEGORIES } from '../lib/data';
+import { WHATSAPP, PHONE, EMAIL, MAP_LINK, HOTEL_CATEGORIES, TAGLINES } from '../lib/data';
 
 export function Footer() {
   return (
@@ -19,7 +19,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm leading-relaxed mb-5">
-              Premium Himalayan travel & hospitality. Hotels, cottages, packages, taxi & bike rentals — your peaceful mountain escape, curated with care.
+              {TAGLINES.primary} — premium Himalayan travel & hospitality. Hotels, camping resorts, packages, taxi & bike rentals. {TAGLINES.family}.
             </p>
             <div className="flex gap-3">
               <a href="https://www.youtube.com/@ghumog" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-white/10 hover:bg-gold-500 hover:text-forest-950 flex items-center justify-center transition-all"><Youtube size={16} /></a>
@@ -49,7 +49,6 @@ export function Footer() {
               {HOTEL_CATEGORIES.map((c) => (
                 <li key={c.slug}><Link to={`/hotels/${c.slug}`} className="hover:text-gold-300 transition-colors">{c.name}</Link></li>
               ))}
-              <li><Link to="/hotels/top-temples" className="hover:text-gold-300 transition-colors">Temple Tours</Link></li>
             </ul>
           </div>
 

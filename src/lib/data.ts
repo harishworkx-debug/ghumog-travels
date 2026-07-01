@@ -11,12 +11,21 @@ export const SOCIALS = [
   { name: 'Instagram', url: 'https://www.instagram.com/aviral9913', icon: 'instagram' },
 ];
 
+export const TAGLINES = {
+  primary: 'Ghumo Ji Bhar Ke',
+  secondary: 'Har Yatra Bane Yaadgar, Ghumo Ji Bhar Ke Saath',
+  experience: 'Yaadein Nahi, Anubhav Chuniye',
+  himalayan: 'Wake Up to Himalayan Views',
+  home: 'Pahadon Ki God Mein Aapka Apna Ghar',
+  family: 'Come as a Guest, Leave as Family',
+};
+
 export const HOTEL_CATEGORIES = [
-  { slug: 'himachal-pradesh', name: 'Himachal Pradesh', tagline: 'Misty mountains & pine forests' },
   { slug: 'uttarakhand', name: 'Uttarakhand', tagline: 'Sacred rivers & Himalayan peaks' },
-  { slug: 'uttar-pradesh', name: 'Uttar Pradesh', tagline: 'Heritage & spiritual heartland' },
-  { slug: 'top-temples', name: 'Top Temples', tagline: 'Divine journeys & pilgrimages' },
+  { slug: 'himachal-pradesh', name: 'Himachal Pradesh', tagline: 'Misty mountains & pine forests' },
 ];
+
+export type GalleryImage = { src: string; alt: string; category: string };
 
 export type Hotel = {
   slug: string;
@@ -27,119 +36,102 @@ export type Hotel = {
   rating: number;
   image: string;
   description: string;
+  tagline: string;
+  highlights: string[];
   amenities: string[];
+  gallery: GalleryImage[];
+  galleryCategories: { slug: string; name: string }[];
 };
+
+// Dynamically import all images from the hotel asset folders.
+// Images are loaded eagerly so they can be referenced by URL at build time.
+const rishikeshHotel4U = import.meta.glob('../assets/Rishikesh-hotel/*.{jpeg,jpg,png,webp}', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const shimlaRashal = import.meta.glob('../assets/Shimla-hotel/*.{jpeg,jpg,png,webp}', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const rishikeshCamping = import.meta.glob('../assets/Rishikesh-Camping-Resorts/*.{jpeg,jpg,png,webp}', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+
+function toGallery(map: Record<string, string>, altPrefix: string): GalleryImage[] {
+  return Object.entries(map)
+    .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+    .map(([path, src]) => {
+      const file = path.split('/').pop() || '';
+      const base = file.replace(/\.(jpeg|jpg|png|webp)$/i, '');
+      let category = 'exterior';
+      if (/^room/i.test(base)) category = 'rooms';
+      else if (/food/i.test(base)) category = 'food';
+      else if (/parking/i.test(base)) category = 'parking';
+      else if (/pool/i.test(base)) category = 'pool';
+      else if (/hotel-extier/i.test(base)) category = 'exterior';
+      return { src, alt: `${altPrefix} — ${base}`, category };
+    });
+}
+
+const rishikeshHotel4UGallery = toGallery(rishikeshHotel4U, 'Rishikesh Hotel 4U');
+const shimlaRashalGallery = toGallery(shimlaRashal, 'Hotel Rashal Stay');
+const rishikeshCampingGallery = toGallery(rishikeshCamping, 'Rishikesh Camping Resorts');
+
+const FALLBACK_IMG = 'https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=1200';
+
+function firstImg(gallery: GalleryImage[], fallback: string) {
+  return gallery[0]?.src || fallback;
+}
 
 export const HOTELS: Hotel[] = [
   {
-    slug: 'rashal-homes-shimla',
-    name: 'Rashal Homes Shimla',
-    category: 'himachal-pradesh',
-    location: 'Shimla, Himachal Pradesh',
-    price: 3200,
+    slug: 'rishikesh-hotel-4u',
+    name: 'Rishikesh Hotel 4U by GhumoG',
+    category: 'uttarakhand',
+    location: 'Tapovan, Rishikesh',
+    price: 2200,
     rating: 4.8,
-    image: 'https://images.pexels.com/photos/1579186/pexels-photo-1579186.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: 'A serene homestay nestled amid cedar forests offering panoramic valley views, warm hospitality, and authentic Himachali cuisine.',
-    amenities: ['Free WiFi', 'Mountain View', 'Breakfast', 'Parking', 'Heater', 'Pet Friendly'],
+    image: firstImg(rishikeshHotel4UGallery, FALLBACK_IMG),
+    description: 'A serene riverside retreat in Tapovan, Rishikesh — wake to Himalayan views, walk to yoga ashrams and cafes, and unwind in comfortable, thoughtfully appointed rooms.',
+    tagline: 'Wake Up to Himalayan Views',
+    highlights: ['Scenic Views', 'Premium Stay', 'Comfort & Luxury', 'Family & Couple Friendly', 'Homely Hospitality', 'Free Parking'],
+    amenities: ['Free WiFi', 'Mountain View', 'Hot Water', 'Free Parking', 'Room Service', 'Peaceful Stay'],
+    gallery: rishikeshHotel4UGallery,
+    galleryCategories: [
+      { slug: 'exterior', name: 'Exterior' },
+      { slug: 'rooms', name: 'Rooms' },
+    ],
   },
   {
-    slug: 'ghumog-stay-sukhmani-kasauli',
-    name: 'GhumoG Stay – Sukhmani Kasauli',
+    slug: 'hotel-rashal-stay',
+    name: 'Hotel Rashal Stay by GhumoG',
     category: 'himachal-pradesh',
-    location: 'Kasauli, Himachal Pradesh',
+    location: 'Shoghi, Shimla',
     price: 2800,
     rating: 4.9,
-    image: 'https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: 'Our signature stay in Kasauli — cozy rooms, misty mornings, and a tranquil garden perfect for unwinding in the hills.',
-    amenities: ['Free WiFi', 'Garden', 'Breakfast', 'Bonfire', 'Parking', 'Heater'],
+    image: firstImg(shimlaRashalGallery, FALLBACK_IMG),
+    description: 'A homely mountain stay in Shoghi, Shimla — surrounded by cedar forests with warm hospitality, homely food on request, and a peaceful atmosphere that feels like your own Himalayan home.',
+    tagline: 'Pahadon Ki God Mein Aapka Apna Ghar',
+    highlights: ['Homely Hospitality', 'Homely Food on Request', 'Peaceful Stay', 'Wooden Rooms', 'Bonfire on Request', 'Free Parking'],
+    amenities: ['Free WiFi', 'Mountain View', 'Homely Food on Request', 'Bonfire on Request', 'Free Parking', 'Heater'],
+    gallery: shimlaRashalGallery,
+    galleryCategories: [
+      { slug: 'exterior', name: 'Exterior' },
+      { slug: 'rooms', name: 'Rooms' },
+      { slug: 'food', name: 'Food Area' },
+      { slug: 'parking', name: 'Parking Area' },
+    ],
   },
   {
-    slug: 'shimla-regency',
-    name: 'Shimla Regency',
-    category: 'himachal-pradesh',
-    location: 'Shimla, Himachal Pradesh',
-    price: 4500,
-    rating: 4.7,
-    image: 'https://images.pexels.com/photos/261101/pexels-photo-261101.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: 'A regal boutique property blending colonial charm with modern luxury on Shimla\'s quiet ridge.',
-    amenities: ['Free WiFi', 'Restaurant', 'Bar', 'Spa', 'Parking', 'Room Service'],
-  },
-  {
-    slug: 'vatika-resort-cottages-shoghi',
-    name: 'Vatika Resort Cottages Shoghi',
-    category: 'himachal-pradesh',
-    location: 'Shoghi, Shimla, Himachal Pradesh',
-    price: 3800,
-    rating: 4.8,
-    image: 'https://images.pexels.com/photos/803975/pexels-photo-803975.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: 'Private wooden cottages surrounded by oak forests — your own slice of Himalayan wilderness near Shimla.',
-    amenities: ['Free WiFi', 'Cottages', 'Bonfire', 'Breakfast', 'Parking', 'Trekking'],
-  },
-  {
-    slug: 'riverside-retreat-rishikesh',
-    name: 'Riverside Retreat Rishikesh',
+    slug: 'rishikesh-camping-resorts',
+    name: 'Rishikesh Camping Resorts by GhumoG',
     category: 'uttarakhand',
-    location: 'Rishikesh, Uttarakhand',
-    price: 3500,
+    location: 'Shivpuri, Badrinath Road, Rishikesh',
+    price: 1800,
     rating: 4.7,
-    image: 'https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: 'Wake to the sound of the Ganges at this peaceful riverside retreat, steps from yoga ashrams and cafes.',
-    amenities: ['Free WiFi', 'River View', 'Yoga', 'Breakfast', 'Parking', 'Cafe'],
-  },
-  {
-    slug: 'naini-lake-villa',
-    name: 'Naini Lake Villa',
-    category: 'uttarakhand',
-    location: 'Nainital, Uttarakhand',
-    price: 4200,
-    rating: 4.6,
-    image: 'https://images.pexels.com/photos/358238/pexels-photo-358238.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: 'A charming villa overlooking Naini Lake with private balcony and boating access.',
-    amenities: ['Free WiFi', 'Lake View', 'Breakfast', 'Parking', 'Heater', 'Balcony'],
-  },
-  {
-    slug: 'heritage-haveli-varanasi',
-    name: 'Heritage Haveli Varanasi',
-    category: 'uttar-pradesh',
-    location: 'Varanasi, Uttar Pradesh',
-    price: 3900,
-    rating: 4.7,
-    image: 'https://images.pexels.com/photos/358238/pexels-photo-358238.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: 'A restored heritage haveli steps from the ghats, offering rooftop Ganga aarti views.',
-    amenities: ['Free WiFi', 'Rooftop', 'Breakfast', 'Aarti View', 'Parking', 'Cafe'],
-  },
-  {
-    slug: 'taj-view-agra-stay',
-    name: 'Taj View Agra Stay',
-    category: 'uttar-pradesh',
-    location: 'Agra, Uttar Pradesh',
-    price: 4800,
-    rating: 4.8,
-    image: 'https://images.pexels.com/photos/358238/pexels-photo-358238.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: 'Wake up to the Taj Mahal from your window at this elegant heritage property.',
-    amenities: ['Free WiFi', 'Taj View', 'Breakfast', 'Rooftop', 'Parking', 'Room Service'],
-  },
-  {
-    slug: 'kedarnath-base-camp',
-    name: 'Kedarnath Base Camp',
-    category: 'top-temples',
-    location: 'Gaurikund, Uttarakhand',
-    price: 2500,
-    rating: 4.5,
-    image: 'https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: 'Comfortable base camp accommodation for pilgrims undertaking the sacred Kedarnath Yatra.',
-    amenities: ['Meals', 'Heater', 'Hot Water', 'Trek Support', 'Parking', 'Prayer Room'],
-  },
-  {
-    slug: 'badrinath-dharamshala',
-    name: 'Badrinath Dharamshala',
-    category: 'top-temples',
-    location: 'Badrinath, Uttarakhand',
-    price: 2200,
-    rating: 4.4,
-    image: 'https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: 'Clean, peaceful lodging for devotees visiting the sacred Badrinath shrine.',
-    amenities: ['Meals', 'Heater', 'Hot Water', 'Parking', 'Prayer Room'],
+    image: firstImg(rishikeshCampingGallery, FALLBACK_IMG),
+    description: 'An outdoor camping experience on the banks of the Ganges — comfortable tents, a swimming pool, nature views and bonfire nights under the stars at Shivpuri, Rishikesh.',
+    tagline: 'Come as a Guest, Leave as Family',
+    highlights: ['Camping Experience', 'Swimming Pool', 'Nature Views', 'Outdoor Stay', 'Comfortable Rooms', 'Bonfire on Request'],
+    amenities: ['Swimming Pool', 'Bonfire on Request', 'Free Parking', 'Hot Water', 'Meals', 'Nature Views'],
+    gallery: rishikeshCampingGallery,
+    galleryCategories: [
+      { slug: 'exterior', name: 'Exterior & Camp' },
+      { slug: 'rooms', name: 'Rooms' },
+      { slug: 'pool', name: 'Swimming Pool' },
+    ],
   },
 ];
 
@@ -197,31 +189,31 @@ export const BLOGS: Blog[] = [
     ],
   },
   {
-    slug: 'chail-palace',
-    title: 'Chail Palace — A Royal Retreat in the Hills',
-    excerpt: 'The summer capital of the Maharaja of Patiala, now a heritage hotel surrounded by forests.',
-    image: 'https://images.pexels.com/photos/261101/pexels-photo-261101.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    slug: 'rishikesh-guide',
+    title: 'Rishikesh — A First-Timer\'s Guide to the Yoga Capital',
+    excerpt: 'Ashrams, cafes, river rafting and the Ganga aarti — your perfect Rishikesh itinerary.',
+    image: 'https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=1200',
     date: 'December 20, 2024',
-    readTime: '5 min read',
+    readTime: '6 min read',
     content: [
-      'Chail Palace was built in 1891 by Maharaja Bhupinder Singh of Patiala after he was banished from Shimla for his dalliance with a British lady. He decided to build his own summer capital — higher, grander, and more private than Shimla.',
-      'The palace, set amid 75 acres of forests and gardens, is now a heritage hotel run by Himachal Tourism. Its architecture blends colonial and Indian styles, with sprawling lawns, vintage furniture, and a quiet, regal atmosphere.',
-      'Chail is also home to the world\'s highest cricket ground (2444m) and a wildlife sanctuary. The town is far quieter than Shimla, making it ideal for those seeking genuine peace.',
-      'Stay in the palace itself, or in one of the charming cottages on the property. The log huts, set deep in the forest, are particularly magical.',
+      'Rishikesh, nestled in the foothills of the Himalayas along the Ganges, is known worldwide as the Yoga Capital of the World. But there is far more here than ashrams and meditation.',
+      'Start your day with a walk through Tapovan, where cafes serve filter coffee with mountain views. Visit the iconic Laxman Jhula and Ram Jhula suspension bridges, and explore the Beatles Ashram for a slice of music history.',
+      'Adventure seekers can book white-water rafting on the Ganges, or head to Shivpuri for riverside camping. The evening Ganga aarti at Triveni Ghat is a soul-stirring experience not to be missed.',
+      'Stay at Rishikesh Hotel 4U in Tapovan for easy access to cafes and ashrams, or choose Rishikesh Camping Resorts in Shivpuri for a riverside camping experience with a swimming pool.',
     ],
   },
   {
-    slug: 'hateshwari-mata',
-    title: 'Hateshwari Mata — The Hidden Hill Temple',
-    excerpt: 'A revered goddess temple near Rohru, surrounded by apple orchards and mountain streams.',
-    image: 'https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    slug: 'shimla-shoghi-guide',
+    title: 'Shoghi — Shimla\'s Quietest Corner',
+    excerpt: 'Why this cedar-forested hamlet just outside Shimla is the perfect peaceful base.',
+    image: 'https://images.pexels.com/photos/261101/pexels-photo-261101.jpeg?auto=compress&cs=tinysrgb&w=1200',
     date: 'November 8, 2024',
-    readTime: '4 min read',
+    readTime: '5 min read',
     content: [
-      'Hateshwari Mata temple, located near Rohru in the Shimla district, is one of the most revered goddess temples in the region. The temple sits amid apple orchards and offers stunning views of the Pabbar valley.',
-      'The temple is especially vibrant during Navratri, when devotees from across Himachal come to seek blessings. The architecture is traditional Himachali, with intricate woodwork and a sloping slate roof.',
-      'The drive to the temple itself is beautiful, winding through some of the most productive apple country in India. Stop at the orchards along the way to buy fresh apples and local produce.',
-      'Combine your visit with a trip to the nearby Chirgaon and the Pabbar river, known for trout fishing.',
+      'Shoghi, a quiet hamlet 13km short of Shimla, is surrounded by dense cedar and oak forests. Far from the crowds of Mall Road, it offers genuine peace and spectacular valley views.',
+      'It is the ideal base for travellers who want Shimla\'s mountain charm without the noise. Wake to birdsong, walk through pine-scented trails, and watch the sunset paint the ranges gold.',
+      'Hotel Rashal Stay by GhumoG is our homely property here — with wooden rooms, homely food on request, bonfire nights, and free parking. It truly feels like "Pahadon ki god mein aapka apna ghar".',
+      'Combine your stay with day trips to Kufri, Mashobra, and the Christ Church area of Shimla, returning each evening to the quiet of Shoghi.',
     ],
   },
   {
@@ -236,20 +228,6 @@ export const BLOGS: Blog[] = [
       'Key Monastery, perched at 4112m, is the spiritual heart of Spiti. It is over 1000 years old and home to around 300 monks. The views from the monastery roof are otherworldly.',
       'Other must-visit spots include Chandratal Lake (a crescent of turquoise at 4300m), the fossil village of Langza, the world\'s highest post office in Hikkim, and the mummy of Giu.',
       'The best time to visit is between May and September. In winter, Spiti is largely cut off by snow. Carry cash — ATMs are rare and often empty. And acclimatise slowly to avoid altitude sickness.',
-    ],
-  },
-  {
-    slug: 'bijli-mahadev',
-    title: 'Bijli Mahadev — Where Lightning Blesses the Shiva Linga',
-    excerpt: 'A 20m tall temple staff and a Shiva linga that shatters and is rebuilt with butter.',
-    image: 'https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    date: 'September 14, 2024',
-    readTime: '4 min read',
-    content: [
-      'Bijli Mahadev is one of the most fascinating Shiva temples in Kullu. Perched at 2460m, it offers panoramic views of the Kullu and Parvati valleys.',
-      'The temple is famous for its 20-metre tall wooden staff, which draws lightning during storms. The lightning strikes the Shiva linga, shattering it into pieces. The priest then reassembles the linga using pure butter, which hardens over time — until the next strike.',
-      'The name "Bijli" means lightning, and the phenomenon has been occurring for centuries. Devotees believe the lightning is Shiva\'s blessing.',
-      'A short trek through pine forests leads to the temple. The meadows around it are perfect for camping and watching spectacular sunsets over the valley.',
     ],
   },
 ];
@@ -272,8 +250,8 @@ export const FAQS = [
 ];
 
 export const TESTIMONIALS = [
-  { name: 'Rahul Sharma', location: 'Delhi', text: 'GhumoG made our Shimla trip effortless. The cottage in Shoghi was magical — misty mornings, bonfire nights, and the most helpful hosts.', rating: 5 },
-  { name: 'Priya Nair', location: 'Bangalore', text: 'Booked the Kedarnath package and everything was flawless — transport, stay, guides. Felt safe and cared for throughout the yatra.', rating: 5 },
-  { name: 'Aman Verma', location: 'Chandigarh', text: 'Rented a bike from GhumoG for a Spiti trip. Well-maintained bike, fair pricing, and great local tips. Highly recommend.', rating: 5 },
-  { name: 'Sneha Kapoor', location: 'Mumbai', text: 'The Kasauli stay was exactly what we needed — peaceful, beautiful, and away from crowds. Will book again for sure.', rating: 5 },
+  { name: 'Rahul Sharma', location: 'Delhi', text: 'GhumoG made our Shimla trip effortless. Hotel Rashal Stay in Shoghi was magical — misty mornings, bonfire nights, and the most helpful hosts.', rating: 5 },
+  { name: 'Priya Nair', location: 'Bangalore', text: 'Stayed at Rishikesh Hotel 4U in Tapovan. Spotless rooms, Himalayan views from the terrace, and walking distance to cafes. Felt safe and cared for throughout.', rating: 5 },
+  { name: 'Aman Verma', location: 'Chandigarh', text: 'Booked the Rishikesh Camping Resorts for a friends trip — swimming pool, riverside bonfire, and comfortable tents. Best budget option in Shivpuri. Highly recommend.', rating: 5 },
+  { name: 'Sneha Kapoor', location: 'Mumbai', text: 'The Shoghi stay was exactly what we needed — peaceful, beautiful, and away from crowds. Truly "come as a guest, leave as family". Will book again for sure.', rating: 5 },
 ];

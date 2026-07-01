@@ -2,8 +2,8 @@ import { Link } from '../lib/router';
 import { Reveal } from '../components/Reveal';
 import { HotelCard } from '../components/HotelCard';
 import { SectionHeading, CtaBanner } from '../components/ui';
-import { HOTELS, HOTEL_CATEGORIES, TESTIMONIALS, WHATSAPP, BLOGS } from '../lib/data';
-import { ArrowRight, Star, MapPin, Play, ChevronLeft, ChevronRight, Quote, Mountain, Bus, Package, Compass } from 'lucide-react';
+import { HOTELS, HOTEL_CATEGORIES, TESTIMONIALS, WHATSAPP, BLOGS, TAGLINES } from '../lib/data';
+import { ArrowRight, Star, MapPin, Play, ChevronLeft, ChevronRight, Quote, Mountain, Bus, Package, Compass, Trees, Sparkles, ShieldCheck, Home, Flame, Utensils, Car } from 'lucide-react';
 import { useState } from 'react';
 
 const HERO_SLIDES = [
@@ -13,17 +13,32 @@ const HERO_SLIDES = [
 ];
 
 const SERVICES = [
-  { icon: Mountain, title: 'Hotel & Cottage Booking', text: 'Handpicked stays across the Himalayas — from cozy homestays to luxury cottages.' },
-  { icon: Package, title: 'Holiday Packages', text: 'Curated itineraries for Shimla, Spiti, Kedarnath and beyond, fully customisable.' },
+  { icon: Mountain, title: 'Hotel & Stay Booking', text: 'Handpicked stays across Rishikesh and Shimla — from riverside hotels to camping resorts.' },
+  { icon: Package, title: 'Holiday Packages', text: 'Curated itineraries for Rishikesh, Shimla, Kedarnath and beyond, fully customisable.' },
   { icon: Bus, title: 'Taxi & Bike Rental', text: 'Reliable transport for sightseeing and road trips, with local expert drivers.' },
   { icon: Compass, title: 'Temple Tours', text: 'Sacred journeys to Kedarnath, Badrinath, Vaishno Devi and more, with full support.' },
+];
+
+const FEATURES = [
+  { icon: Mountain, title: 'Scenic Views', text: 'Wake up to breathtaking Himalayan vistas from every property.' },
+  { icon: Sparkles, title: 'Premium Stay', text: 'Thoughtfully designed rooms with comfort and elegance in mind.' },
+  { icon: Home, title: 'Wooden Rooms', text: 'Authentic mountain architecture with warm wooden interiors.' },
+  { icon: Home, title: 'Terrace Rooms', text: 'Open-air terraces perfect for morning tea and sunset views.' },
+  { icon: Sparkles, title: 'Comfort & Luxury', text: 'Modern amenities blended seamlessly with rustic charm.' },
+  { icon: Sparkles, title: 'Peaceful Stay', text: 'Quiet, serene locations far from the noise of city life.' },
+  { icon: Home, title: 'Family & Couple Friendly', text: 'Safe, welcoming spaces for every kind of traveller.' },
+  { icon: Utensils, title: 'Homely Food on Request', text: 'Authentic home-style meals prepared just for you.' },
+  { icon: Flame, title: 'Bonfire on Request', text: 'Cozy bonfire evenings under star-filled mountain skies.' },
+  { icon: Car, title: 'Free Parking', text: 'Secure, complimentary parking at all our properties.' },
+  { icon: ShieldCheck, title: 'Safe & Secure Environment', text: 'Your safety and peace of mind are our top priority.' },
+  { icon: ShieldCheck, title: 'Safe, Reliable & Trusted', text: 'A travel partner thousands of guests have come to trust.' },
 ];
 
 export function HomePage() {
   const [slide, setSlide] = useState(0);
   const [testi, setTesti] = useState(0);
 
-  const featured = HOTELS.slice(0, 6);
+  const featured = HOTELS;
 
   return (
     <div>
@@ -51,10 +66,10 @@ export function HomePage() {
             Premium Himalayan Travel & Stays
           </span>
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-semibold leading-[1.05] mb-6 animate-fade-up" style={{ animationDelay: '100ms' }}>
-            Wander the Himalayas,<br /><span className="text-gold-300 italic">GhumoG BharKe</span>
+            {TAGLINES.primary}<br /><span className="text-gold-300 italic">{TAGLINES.experience}</span>
           </h1>
           <p className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto mb-9 animate-fade-up" style={{ animationDelay: '200ms' }}>
-            Hotels, cottages, holiday packages, taxi & bike rentals — your peaceful mountain escape, curated with care in Shoghi, Shimla.
+            {TAGLINES.secondary}. Hotels, camping resorts, holiday packages, taxi & bike rentals — your peaceful mountain escape, curated with care.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 animate-fade-up" style={{ animationDelay: '300ms' }}>
             <Link to="/hotels" className="btn-gold text-base">
@@ -104,21 +119,64 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* FEATURED HOTELS */}
+      <section className="bg-forest-100/50 py-20">
+        <div className="container-px">
+          <Reveal>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+              <div>
+                <span className="section-eyebrow">Our Properties</span>
+                <h2 className="text-3xl md:text-5xl font-serif font-semibold text-forest-900">Handpicked Hotels</h2>
+                <p className="text-forest-600 mt-2 max-w-xl">{TAGLINES.home} — three signature stays across Rishikesh and Shimla.</p>
+              </div>
+              <Link to="/hotels" className="btn-outline text-sm self-start md:self-auto">
+                View All Hotels <ArrowRight size={16} />
+              </Link>
+            </div>
+          </Reveal>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+            {featured.map((h, i) => (
+              <Reveal key={h.slug} delay={(i % 3) * 100}>
+                <HotelCard hotel={h} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURES / HIGHLIGHTS */}
+      <section className="container-px py-20">
+        <Reveal>
+          <SectionHeading eyebrow="Why GhumoG" title="Features & Highlights" subtitle="Every detail crafted for a memorable Himalayan stay — comfort, safety, and homely warmth." />
+        </Reveal>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {FEATURES.map((f, i) => (
+            <Reveal key={f.title} delay={(i % 4) * 80}>
+              <div className="group glass rounded-2xl p-6 card-hover h-full">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-forest-600 to-forest-900 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500">
+                  <f.icon size={22} className="text-gold-300" />
+                </div>
+                <h3 className="text-base font-serif font-semibold text-forest-900 mb-1.5">{f.title}</h3>
+                <p className="text-sm text-forest-600 leading-relaxed">{f.text}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
       {/* DESTINATIONS */}
       <section className="bg-forest-100/50 py-20">
         <div className="container-px">
           <Reveal>
-            <SectionHeading eyebrow="Where To Go" title="Explore Destinations" subtitle="Four regions, countless stories. Pick your Himalayan adventure." />
+            <SectionHeading eyebrow="Where To Go" title="Explore Destinations" subtitle="Two Himalayan states, countless stories. Pick your mountain adventure." />
           </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {HOTEL_CATEGORIES.map((c, i) => (
               <Reveal key={c.slug} delay={i * 100}>
                 <Link to={`/hotels/${c.slug}`} className="group relative block h-80 rounded-3xl overflow-hidden card-hover">
                   <img
                     src={['https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=800',
-                          'https://images.pexels.com/photos/358238/pexels-photo-358238.jpeg?auto=compress&cs=tinysrgb&w=800',
-                          'https://images.pexels.com/photos/358238/pexels-photo-358238.jpeg?auto=compress&cs=tinysrgb&w=800',
-                          'https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=800'][i]}
+                          'https://images.pexels.com/photos/803975/pexels-photo-803975.jpeg?auto=compress&cs=tinysrgb&w=800'][i]}
                     alt={c.name}
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -138,28 +196,6 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* FEATURED HOTELS */}
-      <section className="container-px py-20">
-        <Reveal>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
-            <div>
-              <span className="section-eyebrow">Featured Stays</span>
-              <h2 className="text-3xl md:text-5xl font-serif font-semibold text-forest-900">Handpicked Hotels</h2>
-            </div>
-            <Link to="/hotels" className="btn-outline text-sm self-start md:self-auto">
-              View All Hotels <ArrowRight size={16} />
-            </Link>
-          </div>
-        </Reveal>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-          {featured.map((h, i) => (
-            <Reveal key={h.slug} delay={(i % 3) * 100}>
-              <HotelCard hotel={h} />
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
       {/* STATS */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-forest-800 to-forest-950" />
@@ -167,10 +203,10 @@ export function HomePage() {
         <div className="container-px relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
             {[
-              { num: '50+', label: 'Curated Stays' },
+              { num: '3', label: 'Signature Stays' },
               { num: '10K+', label: 'Happy Travellers' },
-              { num: '15+', label: 'Destinations' },
-              { num: '4.9★', label: 'Average Rating' },
+              { num: '2', label: 'Himalayan States' },
+              { num: '4.8★', label: 'Average Rating' },
             ].map((s, i) => (
               <Reveal key={s.label} delay={i * 100}>
                 <div>
@@ -186,7 +222,7 @@ export function HomePage() {
       {/* TESTIMONIALS */}
       <section className="container-px py-20">
         <Reveal>
-          <SectionHeading eyebrow="Traveller Stories" title="Loved by Our Guests" subtitle="Real experiences from travellers who explored the Himalayas with GhumoG." />
+          <SectionHeading eyebrow="Traveller Stories" title="Loved by Our Guests" subtitle={`${TAGLINES.family}. Real experiences from travellers who stayed with us.`} />
         </Reveal>
         <Reveal>
           <div className="max-w-3xl mx-auto">
@@ -270,7 +306,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <CtaBanner title="Ready for Your Himalayan Escape?" text="Message us on WhatsApp and our travel experts will craft your perfect itinerary — stays, transport, and experiences, all in one place." />
+      <CtaBanner title="Ready for Your Himalayan Escape?" text={`${TAGLINES.secondary}. Message us on WhatsApp and our travel experts will craft your perfect itinerary — stays, transport, and experiences, all in one place.`} />
     </div>
   );
 }

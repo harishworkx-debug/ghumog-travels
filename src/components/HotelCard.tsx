@@ -27,9 +27,10 @@ export function HotelCard({ hotel }: { hotel: Hotel }) {
           <MapPin size={12} />
           {hotel.location}
         </div>
-        <h3 className="text-xl font-serif font-semibold text-forest-900 mb-2 group-hover:text-forest-700 transition-colors">
+        <h3 className="text-xl font-serif font-semibold text-forest-900 mb-1 group-hover:text-forest-700 transition-colors">
           {hotel.name}
         </h3>
+        <p className="text-sm font-serif italic text-gold-700 mb-2">{hotel.tagline}</p>
         <p className="text-sm text-forest-600 line-clamp-2 mb-4">{hotel.description}</p>
         <div className="flex items-center gap-3">
           <Link to={`/hotels/${hotel.slug}`} className="flex-1 btn-gold text-sm py-2.5">

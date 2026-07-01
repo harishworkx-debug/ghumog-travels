@@ -1,6 +1,6 @@
 import { PageHero, CtaBanner, SectionHeading } from '../components/ui';
 import { Reveal } from '../components/Reveal';
-import { FAQS } from '../lib/data';
+import { FAQS, TAGLINES } from '../lib/data';
 import { useState } from 'react';
 import { ChevronDown, Mountain, Heart, Compass, Award } from 'lucide-react';
 
@@ -21,9 +21,9 @@ export function AboutPage() {
               <span className="section-eyebrow">Our Story</span>
               <h2 className="text-3xl md:text-4xl font-serif font-semibold text-forest-900 mb-5">Born in the Mountains, for the Mountains</h2>
               <div className="space-y-4 text-forest-700 leading-relaxed">
-                <p>GhumoG BharKe began as a small homestay in Shoghi, Shimla — a family's love for hosting travellers from across the world. Over the years, we grew into a full-service travel company, but our heart remains the same: genuine Himalayan hospitality.</p>
-                <p>Today we offer hotels, cottages, holiday packages, taxi services, bike rentals, temple tours, and trekking — all curated by people who call these mountains home. We know the hidden trails, the best viewpoints, the quietest stays, and the warmest people.</p>
-                <p>When you travel with GhumoG, you're not just a customer. You're a guest in our home. And we treat every guest like family.</p>
+                <p>GhumoG BharKe began as a small homestay in Shoghi, Shimla — a family's love for hosting travellers from across the world. Today we run three signature properties — Rishikesh Hotel 4U, Hotel Rashal Stay in Shoghi, and Rishikesh Camping Resorts — but our heart remains the same: genuine Himalayan hospitality.</p>
+                <p>{TAGLINES.home}. We offer hotels, camping resorts, holiday packages, taxi services, bike rentals, and trekking — all curated by people who call these mountains home. We know the hidden trails, the best viewpoints, the quietest stays, and the warmest people.</p>
+                <p>When you travel with GhumoG, you're not just a customer. {TAGLINES.family}.</p>
               </div>
             </div>
           </Reveal>
