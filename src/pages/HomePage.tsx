@@ -38,7 +38,7 @@ export function HomePage() {
   const [slide, setSlide] = useState(0);
   const [testi, setTesti] = useState(0);
 
-  const featured = HOTELS;
+  const featured = HOTELS.slice(0, 6);
 
   return (
     <div>
@@ -127,7 +127,7 @@ export function HomePage() {
               <div>
                 <span className="section-eyebrow">Our Properties</span>
                 <h2 className="text-3xl md:text-5xl font-serif font-semibold text-forest-900">Handpicked Hotels</h2>
-                <p className="text-forest-600 mt-2 max-w-xl">{TAGLINES.home} — three signature stays across Rishikesh and Shimla.</p>
+                <p className="text-forest-600 mt-2 max-w-xl">{TAGLINES.home} — signature stays across Rishikesh, Shimla and beyond.</p>
               </div>
               <Link to="/hotels" className="btn-outline text-sm self-start md:self-auto">
                 View All Hotels <ArrowRight size={16} />
@@ -168,15 +168,17 @@ export function HomePage() {
       <section className="bg-forest-100/50 py-20">
         <div className="container-px">
           <Reveal>
-            <SectionHeading eyebrow="Where To Go" title="Explore Destinations" subtitle="Two Himalayan states, countless stories. Pick your mountain adventure." />
+            <SectionHeading eyebrow="Where To Go" title="Explore Destinations" subtitle="Four regions, countless stories. Pick your Himalayan adventure." />
           </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {HOTEL_CATEGORIES.map((c, i) => (
               <Reveal key={c.slug} delay={i * 100}>
                 <Link to={`/hotels/${c.slug}`} className="group relative block h-80 rounded-3xl overflow-hidden card-hover">
                   <img
                     src={['https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=800',
-                          'https://images.pexels.com/photos/803975/pexels-photo-803975.jpeg?auto=compress&cs=tinysrgb&w=800'][i]}
+                          'https://images.pexels.com/photos/803975/pexels-photo-803975.jpeg?auto=compress&cs=tinysrgb&w=800',
+                          'https://images.pexels.com/photos/358238/pexels-photo-358238.jpeg?auto=compress&cs=tinysrgb&w=800',
+                          'https://images.pexels.com/photos/261101/pexels-photo-261101.jpeg?auto=compress&cs=tinysrgb&w=800'][i]}
                     alt={c.name}
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -203,9 +205,9 @@ export function HomePage() {
         <div className="container-px relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
             {[
-              { num: '3', label: 'Signature Stays' },
+              { num: '12+', label: 'Curated Stays' },
               { num: '10K+', label: 'Happy Travellers' },
-              { num: '2', label: 'Himalayan States' },
+              { num: '4', label: 'Destinations' },
               { num: '4.8★', label: 'Average Rating' },
             ].map((s, i) => (
               <Reveal key={s.label} delay={i * 100}>

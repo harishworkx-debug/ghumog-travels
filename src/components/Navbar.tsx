@@ -77,9 +77,9 @@ export function Navbar() {
 
                 {/* Mega menu */}
                 {item.mega && megaOpen && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[340px]">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[520px]">
                     <div className="glass rounded-2xl p-3 shadow-2xl shadow-forest-900/20 animate-fade-in">
-                      <div className="grid grid-cols-1 gap-1">
+                      <div className="grid grid-cols-2 gap-1">
                         {item.children!.map((child) => (
                           <Link
                             key={child.to}
