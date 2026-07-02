@@ -1,5 +1,11 @@
 import room2Image from '../assets/Rishikesh-hotel/room2.jpeg';
 import rishikeshViewImage from '../assets/Rishikesh-hotel/Rishikesh-view.png';
+import room8Image from '../assets/Shimla-hotel/room2.jpeg'
+import shimlaAttraction from '../assets/Shimla-hotel/Shimla-attractions1.png'
+import rishikeshCampViewImage from '../assets/Rishikesh-Camping-Resorts/hotel-extier9.jpeg'
+import rishikeshCampViewImage2 from '../assets/Rishikesh-Camping-Resorts/RishikeshCamp-attractions4.png'
+
+
 
 export const WHATSAPP = 'https://wa.me/917018939901?text=' + encodeURIComponent('Hello GhumoG Team,\nI would like to know more about your hotel stays and travel packages.');
 export const PHONE = '+91 7018939901';
@@ -107,7 +113,8 @@ export const HOTELS: Hotel[] = [
     location: 'Shoghi, Shimla',
     price: 2800,
     rating: 4.9,
-    image: firstImg(shimlaRashalGallery, FALLBACK_IMG),
+    image: shimlaAttraction,
+    cardImage: room8Image,
     description: 'A homely mountain stay in Shoghi, Shimla — surrounded by cedar forests with warm hospitality, homely food on request, and a peaceful atmosphere that feels like your own Himalayan home.',
     tagline: 'Pahadon Ki God Mein Aapka Apna Ghar',
     highlights: ['Homely Hospitality', 'Homely Food on Request', 'Peaceful Stay', 'Wooden Rooms', 'Bonfire on Request', 'Free Parking'],
@@ -127,7 +134,8 @@ export const HOTELS: Hotel[] = [
     location: 'Shivpuri, Badrinath Road, Rishikesh',
     price: 1800,
     rating: 4.7,
-    image: firstImg(rishikeshCampingGallery, FALLBACK_IMG),
+    image: rishikeshCampViewImage2,
+    cardImage : rishikeshCampViewImage,
     description: 'An outdoor camping experience on the banks of the Ganges — comfortable tents, a swimming pool, nature views and bonfire nights under the stars at Shivpuri, Rishikesh.',
     tagline: 'Come as a Guest, Leave as Family',
     highlights: ['Camping Experience', 'Swimming Pool', 'Nature Views', 'Outdoor Stay', 'Comfortable Rooms', 'Bonfire on Request'],
