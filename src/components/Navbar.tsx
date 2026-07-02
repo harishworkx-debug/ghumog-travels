@@ -5,16 +5,15 @@ import { Menu, X, ChevronDown, Phone, Mountain, Home, Bus, Package, Newspaper, V
 
 const NAV = [
   { label: 'Home', to: '/', icon: Home },
+  { label: 'Introduction', to: '/about', icon: Info },
   {
     label: 'Hotels', to: '/hotels', icon: Mountain, mega: true,
     children: HOTEL_CATEGORIES.map((c) => ({ label: c.name, to: `/hotels/${c.slug}`, tagline: c.tagline })),
   },
-  { label: 'Online Transport', to: '/online-transport', icon: Bus },
-  { label: 'Hotel Accessories', to: '/hotel-accessories', icon: Package },
-  { label: 'Blog', to: '/blog', icon: Newspaper },
+  { label: 'Transport Solutions', to: '/online-transport', icon: Bus },
+  { label: 'Travel Stories', to: '/blog', icon: Newspaper },
   { label: 'Video Tour', to: '/video-tour', icon: Video },
   { label: 'Contact Us', to: '/contact', icon: Mail },
-  { label: 'About', to: '/about', icon: Info },
 ];
 
 export function Navbar() {
@@ -46,8 +45,14 @@ export function Navbar() {
         <nav className="container-px flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-forest-600 to-forest-900 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-              <Mountain size={20} className="text-gold-300" />
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-forest-600 to-forest-900 p-[2px] shadow-lg group-hover:scale-110 transition-transform">
+              <div className="flex h-full w-full items-center justify-center rounded-[13px] bg-white/95">
+                <img
+                  src="/favicon.png"
+                  alt="GhumoG BharKe"
+                  className="h-20 w-20 object-contain"
+                />
+              </div>
             </div>
             <div className="leading-none">
               <span className={`block font-serif text-xl font-bold tracking-tight ${scrolled ? 'text-forest-900' : 'text-white'}`}>GhumoG</span>

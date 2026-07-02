@@ -16,7 +16,7 @@ const SERVICES = [
   { icon: Mountain, title: 'Hotel & Stay Booking', text: 'Handpicked stays across Rishikesh and Shimla — from riverside hotels to camping resorts.' },
   { icon: Package, title: 'Holiday Packages', text: 'Curated itineraries for Rishikesh, Shimla, Kedarnath and beyond, fully customisable.' },
   { icon: Bus, title: 'Taxi & Bike Rental', text: 'Reliable transport for sightseeing and road trips, with local expert drivers.' },
-  { icon: Compass, title: 'Temple Tours', text: 'Sacred journeys to Kedarnath, Badrinath, Vaishno Devi and more, with full support.' },
+  { icon: Compass, title: 'Dharmik Yatra', text: 'Sacred journeys to Kedarnath, Badrinath, Vaishno Devi and more, with full support.' },
 ];
 
 const FEATURES = [
@@ -54,29 +54,32 @@ export function HomePage() {
               <img src={s} alt="Himalayas" className="w-full h-full object-cover scale-105" />
             </div>
           ))}
-          <div className="absolute inset-0 bg-gradient-to-b from-forest-950/60 via-forest-900/40 to-forest-950/85" />
+          <div className="absolute inset-0 bg-gradient-to-b from-forest-950/35 via-forest-900/20 to-forest-950/55" />
         </div>
 
         {/* Floating decorative orbs */}
         <div className="absolute top-1/4 left-10 w-24 h-24 rounded-full bg-gold-500/20 blur-2xl animate-float" />
         <div className="absolute bottom-1/4 right-10 w-32 h-32 rounded-full bg-forest-400/20 blur-3xl animate-float" style={{ animationDelay: '3s' }} />
 
-        <div className="relative z-10 text-center text-white container-px">
-          <span className="inline-block px-4 py-1.5 rounded-full glass text-xs font-semibold uppercase tracking-[0.25em] text-gold-300 mb-6 animate-fade-up">
+        <div className="relative z-10 text-center text-white container-px px-4 sm:px-6">
+          <span className="inline-block px-4 py-1.5 rounded-full border border-white/20 bg-black/25 backdrop-blur-xl text-xs font-semibold uppercase tracking-[0.25em] text-gold-300 mb-6 animate-fade-up shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
             Premium Himalayan Travel & Stays
           </span>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-semibold leading-[1.05] mb-6 animate-fade-up" style={{ animationDelay: '100ms' }}>
-            {TAGLINES.primary}<br /><span className="text-gold-300 italic">{TAGLINES.experience}</span>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-semibold leading-[1.05] mb-6 animate-fade-up drop-shadow-[0_4px_18px_rgba(0,0,0,0.8)]" style={{ animationDelay: '100ms' }}>
+            {TAGLINES.primary}<br /><span className="text-gold-300 italic whitespace-pre-line drop-shadow-[0_3px_10px_rgba(0,0,0,0.7)]">{TAGLINES.experience}</span>
           </h1>
-          <p className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto mb-9 animate-fade-up" style={{ animationDelay: '200ms' }}>
-            {TAGLINES.secondary}. Hotels, camping resorts, holiday packages, taxi & bike rentals — your peaceful mountain escape, curated with care.
+          <p className="text-lg md:text-xl text-white/95 max-w-3xl mx-auto mb-9 animate-fade-up leading-relaxed tracking-wide" style={{ animationDelay: '200ms' }}>
+            <span className="block font-medium drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">{TAGLINES.secondary}</span>
+            <span className="mt-3 block text-sm md:text-lg uppercase tracking-[0.25em] text-white/90 font-semibold bg-black/15 backdrop-blur-sm rounded-2xl border border-white/10 px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.2)]">
+              Book your hotels, resorts, camping, homestay, taxis & bike rentals
+            </span>
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 animate-fade-up" style={{ animationDelay: '300ms' }}>
             <Link to="/hotels" className="btn-gold text-base">
               Explore Hotels <ArrowRight size={18} />
             </Link>
             <a href={WHATSAPP} target="_blank" rel="noreferrer" className="btn-outline border-white/30 text-white hover:bg-white hover:text-forest-900 hover:border-white text-base">
-              Plan Your Trip
+              Book Your Hotel
             </a>
           </div>
         </div>
@@ -125,8 +128,8 @@ export function HomePage() {
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
               <div>
-                <span className="section-eyebrow">Our Properties</span>
-                <h2 className="text-3xl md:text-5xl font-serif font-semibold text-forest-900">Handpicked Hotels</h2>
+                {/* <span className="section-eyebrow">Our Properties</span> */}
+                <h2 className="text-3xl md:text-5xl font-serif font-semibold text-forest-900">Ghumo G Properties</h2>
                 <p className="text-forest-600 mt-2 max-w-xl">{TAGLINES.home} — signature stays across Rishikesh, Shimla and beyond.</p>
               </div>
               <Link to="/hotels" className="btn-outline text-sm self-start md:self-auto">

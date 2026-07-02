@@ -23,10 +23,10 @@ export function OnlineTransportPage() {
   return (
     <div>
       <PageHero
-        title="Online Transport"
+        title="Transport Solutions"
         subtitle="Taxis, bikes & scooty rentals for seamless Himalayan travel."
         image="https://images.pexels.com/photos/2116475/pexels-photo-2116475.jpeg?auto=compress&cs=tinysrgb&w=1920"
-        breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Online Transport' }]}
+        breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Transport Solutions' }]}
       />
 
       {/* Taxi */}

@@ -8,7 +8,7 @@ export function HotelCard({ hotel }: { hotel: Hotel }) {
     <div className="group glass rounded-3xl overflow-hidden card-hover">
       <div className="relative h-64 overflow-hidden">
         <img
-          src={hotel.image}
+          src={hotel.cardImage || hotel.image}
           alt={hotel.name}
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"

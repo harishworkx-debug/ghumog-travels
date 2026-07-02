@@ -1,3 +1,6 @@
+import room2Image from '../assets/Rishikesh-hotel/room2.jpeg';
+import rishikeshViewImage from '../assets/Rishikesh-hotel/Rishikesh-view.png';
+
 export const WHATSAPP = 'https://wa.me/917018939901?text=' + encodeURIComponent('Hello GhumoG Team,\nI would like to know more about your hotel stays and travel packages.');
 export const PHONE = '+91 7018939901';
 export const PHONE_TEL = 'tel:+917018939901';
@@ -12,9 +15,9 @@ export const SOCIALS = [
 ];
 
 export const TAGLINES = {
-  primary: 'Ghumo Ji Bhar Ke',
-  secondary: 'Har Yatra Bane Yaadgar, Ghumo Ji Bhar Ke Saath',
-  experience: 'Yaadein Nahi, Anubhav Chuniye',
+  primary: 'Ghumo G Bhar Ke',
+  secondary: '',
+  experience: 'Yaadein Nahi,\nAnubhav Chuniye',
   himalayan: 'Wake Up to Himalayan Views',
   home: 'Pahadon Ki God Mein Aapka Apna Ghar',
   family: 'Come as a Guest, Leave as Family',
@@ -23,8 +26,7 @@ export const TAGLINES = {
 export const HOTEL_CATEGORIES = [
   { slug: 'himachal-pradesh', name: 'Himachal Pradesh', tagline: 'Misty mountains & pine forests' },
   { slug: 'uttarakhand', name: 'Uttarakhand', tagline: 'Sacred rivers & Himalayan peaks' },
-  { slug: 'uttar-pradesh', name: 'Uttar Pradesh', tagline: 'Heritage & spiritual heartland' },
-  { slug: 'top-temples', name: 'Top Temples', tagline: 'Divine journeys & pilgrimages' },
+  { slug: 'top-temples', name: 'Dharmik Yatra', tagline: 'Divine journeys & pilgrimages' },
 ];
 
 export type GalleryImage = { src: string; alt: string; category: string };
@@ -37,6 +39,7 @@ export type Hotel = {
   price: number;
   rating: number;
   image: string;
+  cardImage?: string;
   description: string;
   tagline: string;
   highlights: string[];
@@ -85,7 +88,8 @@ export const HOTELS: Hotel[] = [
     location: 'Tapovan, Rishikesh',
     price: 2200,
     rating: 4.8,
-    image: firstImg(rishikeshHotel4UGallery, FALLBACK_IMG),
+    image: rishikeshViewImage,
+    cardImage: room2Image,
     description: 'A serene riverside retreat in Tapovan, Rishikesh — wake to Himalayan views, walk to yoga ashrams and cafes, and unwind in comfortable, thoughtfully appointed rooms.',
     tagline: 'Wake Up to Himalayan Views',
     highlights: ['Scenic Views', 'Premium Stay', 'Comfort & Luxury', 'Family & Couple Friendly', 'Homely Hospitality', 'Free Parking'],
@@ -95,7 +99,7 @@ export const HOTELS: Hotel[] = [
       { slug: 'exterior', name: 'Exterior' },
       { slug: 'rooms', name: 'Rooms' },
     ],
-  },
+  },  
   {
     slug: 'hotel-rashal-stay',
     name: 'Hotel Rashal Stay by GhumoG',
@@ -245,9 +249,9 @@ export const VIDEOS = [
 export const FAQS = [
   { q: 'How do I book a hotel with GhumoG?', a: 'You can book directly through our website by selecting a hotel and clicking "Book Now", or message us on WhatsApp at +91 7018939901 for instant booking assistance.' },
   { q: 'What is your cancellation policy?', a: 'Free cancellation up to 7 days before check-in. Cancellations within 7 days are subject to a one-night charge. No-shows are charged in full.' },
-  { q: 'Do you offer taxi and bike rentals?', a: 'Yes. We provide taxi services for local sightseeing and intercity travel, plus bike and scooty rentals for self-guided exploration. Visit our Online Transport page for details.' },
+  { q: 'Do you offer taxi and bike rentals?', a: 'Yes. We provide taxi services for local sightseeing and intercity travel, plus bike and scooty rentals for self-guided exploration. Visit our Transport Solutions page for details.' },
   { q: 'Can you customise holiday packages?', a: 'Absolutely. Every package can be tailored to your dates, budget, and interests. Message us on WhatsApp and our travel experts will craft a personalised itinerary.' },
-  { q: 'Are your temple tour packages safe for elderly pilgrims?', a: 'Yes. We design temple tours with comfortable transport, manageable trekking options, and rest stops. Let us know your needs and we will plan accordingly.' },
+  { q: 'Are your temple tour packages safe for elderly pilgrims?', a: 'Yes. We design Dharmik Yatra with comfortable transport, manageable trekking options, and rest stops. Let us know your needs and we will plan accordingly.' },
   { q: 'What payment methods do you accept?', a: 'We accept UPI, bank transfers, and major credit/debit cards. A 25% advance confirms your booking, with the balance payable on arrival.' },
 ];
 

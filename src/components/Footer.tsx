@@ -34,7 +34,7 @@ export function Footer() {
             <ul className="space-y-2.5 text-sm">
               <li><Link to="/" className="hover:text-gold-300 transition-colors">Home</Link></li>
               <li><Link to="/hotels" className="hover:text-gold-300 transition-colors">All Hotels</Link></li>
-              <li><Link to="/online-transport" className="hover:text-gold-300 transition-colors">Online Transport</Link></li>
+              <li><Link to="/online-transport" className="hover:text-gold-300 transition-colors">Transport Solutions</Link></li>
               <li><Link to="/hotel-accessories" className="hover:text-gold-300 transition-colors">Hotel Accessories</Link></li>
               <li><Link to="/blog" className="hover:text-gold-300 transition-colors">Blog</Link></li>
               <li><Link to="/video-tour" className="hover:text-gold-300 transition-colors">Video Tour</Link></li>
@@ -50,7 +50,7 @@ export function Footer() {
               {HOTEL_CATEGORIES.map((c) => (
                 <li key={c.slug}><Link to={`/hotels/${c.slug}`} className="hover:text-gold-300 transition-colors">{c.name}</Link></li>
               ))}
-              <li><Link to="/hotels/top-temples" className="hover:text-gold-300 transition-colors">Temple Tours</Link></li>
+              <li><Link to="/hotels/top-temples" className="hover:text-gold-300 transition-colors">Dharmik Yatra</Link></li>
             </ul>
           </div>
 
