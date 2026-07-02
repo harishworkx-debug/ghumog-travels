@@ -2,10 +2,9 @@ import { PageHero, CtaBanner, SectionHeading } from '../components/ui';
 import { Reveal } from '../components/Reveal';
 import { FAQS, TAGLINES } from '../lib/data';
 import { useState } from 'react';
-import { ChevronDown, Mountain, Heart, Compass, Award, Phone, Mail, MessageCircle, Youtube, Facebook, Instagram, MapPin, User } from 'lucide-react';
+import { ChevronDown, Mountain, Heart, Compass, Award, Phone, Mail, MessageCircle, Youtube, Facebook, Instagram, MapPin } from 'lucide-react';
 
-const founderImages = import.meta.glob('../assets/images/Aviral_Jain.{png,jpg,jpeg,webp}', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
-const AviralJain = Object.values(founderImages)[0] || '';
+const AviralJain = '/images/founder/image.png';
 
 const DESTINATIONS = [
   'Shimla', 'Manali', 'Kufri', 'Kasauli', 'Haridwar', 'Rishikesh',
@@ -90,17 +89,11 @@ export function AboutPage() {
             <div className="relative">
               <div className="absolute -inset-2 rounded-[2rem] bg-gradient-to-br from-forest-600/30 to-gold-500/20 blur-xl" />
               <div className="relative rounded-[1.75rem] overflow-hidden shadow-2xl shadow-forest-900/20 aspect-[3/4] max-w-sm mx-auto lg:max-w-none bg-forest-100">
-                {AviralJain ? (
-                  <img
-                    src={AviralJain}
-                    alt="Aviral Jain — Founder, GhumoG"
-                    className="w-full h-full object-cover object-top"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <User size={80} className="text-forest-300" />
-                  </div>
-                )}
+                <img
+                  src={AviralJain}
+                  alt="Aviral Jain — Founder, GhumoG"
+                  className="w-full h-full object-cover object-top"
+                />
               </div>
               {/* Name badge */}
               <div className="absolute bottom-4 left-4 right-4 glass rounded-2xl p-4">
