@@ -1,11 +1,17 @@
 import { PageHero, CtaBanner, SectionHeading } from '../components/ui';
 import { Reveal } from '../components/Reveal';
-import { FAQS, TAGLINES } from '../lib/data';
+import { FAQS } from '../lib/data';
 import { useState } from 'react';
 import Himachalpradesh1 from '../assets/Himachal-pradesh1.png';
 import { ChevronDown, Mountain, Heart, Compass, Award, Phone, Mail, MessageCircle, Youtube, Facebook, Instagram, MapPin } from 'lucide-react';
 
 const AviralJain = '/images/founder/image.png';
+
+import HimachalImg2 from '../assets/paraglading.png';
+import HimachalImg3 from '../assets/travel.png';
+import HimachalImg4 from '../assets/rafting.png';
+import HimachalImg5 from '../assets/Himachal-pradesh5.png';
+
 
 const DESTINATIONS = [
   'Shimla', 'Manali', 'Kufri', 'Kasauli', 'Haridwar', 'Rishikesh',
@@ -15,7 +21,7 @@ const DESTINATIONS = [
 const FOUNDER_SOCIALS = [
   { icon: Phone, label: 'Call', value: '+91 70189 39901', href: 'tel:+917018939901', color: 'bg-forest-800' },
   { icon: MessageCircle, label: 'WhatsApp', value: '+91 70189 39901', href: 'https://wa.me/917018939901', color: 'bg-[#25D366]' },
-  { icon: Mail, label: 'Email', value: 'ghomogbharke@gmail.com', href: 'mailto:ghomogbharke@gmail.com', color: 'bg-gold-600' },
+  { icon: Mail, label: 'Email', value: 'ghumog.com@gmail.com', href: 'mailto:ghumog.com@gmail.com', color: 'bg-gold-600' },
   { icon: Instagram, label: 'Instagram', value: '@aviral9913', href: 'https://www.instagram.com/aviral9913', color: 'bg-[#E1306C]' },
   { icon: Youtube, label: 'YouTube', value: '@Ghumog', href: 'https://www.youtube.com/@ghumog', color: 'bg-[#FF0000]' },
   { icon: Facebook, label: 'Facebook', value: 'ghumogbharke', href: 'https://www.facebook.com/ghumogbharke', color: 'bg-[#1877F2]' },
@@ -35,48 +41,39 @@ export function AboutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <Reveal>
             <div>
-              <span className="section-eyebrow">Our Story</span>
-              <h2 className="text-3xl md:text-4xl font-serif font-semibold text-forest-900 mb-5">Born in the Mountains, for the Mountains</h2>
+              <span className="section-eyebrow">Key offerings in Himachal and Uttarakhand</span>
+              <h2 className="text-3xl md:text-4xl font-serif font-semibold text-forest-900 mb-5">GhumoG Bharke</h2>
               <div className="space-y-4 text-forest-700 leading-relaxed">
-                <p>GhumoG BharKe began as a small homestay in Shoghi, Shimla — a family's love for hosting travellers from across the world. Today we run three signature properties — Rishikesh Hotel 4U, Hotel Rashal Stay in Shoghi, and Rishikesh Camping Resorts — but our heart remains the same: genuine Himalayan hospitality.</p>
-                <p>{TAGLINES.home}. We offer hotels, camping resorts, holiday packages, taxi services, bike rentals, and trekking — all curated by people who call these mountains home. We know the hidden trails, the best viewpoints, the quietest stays, and the warmest people.</p>
-                <p>When you travel with GhumoG, you're not just a customer. {TAGLINES.family}.</p>
+                <p>Welcome to Ghumog Stay, your peaceful mountain escape where nature, comfort, and unforgettable experiences come together. Nestled in the beautiful hills of Himachal Pradesh and Uttarakhand, Ghumog Stay offers cozy rooms, breathtaking valley views, fresh mountain air, and a perfect environment for travelers who want to relax and explore the beauty of the Himalayas.</p>
+                <p>At Ghumog Stay, we believe that travel is not just about staying somewhere — it’s about creating memories. Whether you are planning a family vacation, romantic getaway, workation, adventure trip, or weekend escape, we provide a comfortable and homely experience surrounded by nature.</p>
+                <p>We are dedicated to offering warm hospitality, local experiences, and affordable luxury for every guest. From peaceful mornings in the mountains to adventurous evenings exploring nearby attractions, Ghumog Stay is designed to make your trip special.</p>
+                <div className="rounded-2xl border border-forest-200 bg-forest-50/80 p-5">
+                  <h3 className="text-lg font-serif font-semibold text-forest-900 mb-3">Why Choose Ghumog Stay?</h3>
+                  <ul className="space-y-2 text-sm text-forest-700">
+                    <li>• Best stay experience</li>
+                    <li>• Perfect for couples, families &amp; solo travelers</li>
+                    <li>• Budget-friendly luxury rooms</li>
+                    <li>• Scenic valley and forest views</li>
+                    <li>• Friendly hospitality with local touch</li>
+                    <li>• Ideal for vacations, workstations &amp; weekend trips</li>
+                  </ul>
+                </div>
+                <p>At Ghumog Stay – “Ghumog Bharke”, we invite you to disconnect from stress and reconnect with nature.</p>
               </div>
             </div>
           </Reveal>
           <Reveal delay={100}>
             <div className="grid grid-cols-2 gap-4">
-              <img src="https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Himalayas" className="rounded-3xl h-64 w-full object-cover" />
-              <img src="https://images.pexels.com/photos/803975/pexels-photo-803975.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cottage" className="rounded-3xl h-64 w-full object-cover mt-8" />
-              <img src="https://images.pexels.com/photos/261101/pexels-photo-261101.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Shimla" className="rounded-3xl h-64 w-full object-cover -mt-8" />
-              <img src="https://images.pexels.com/photos/358238/pexels-photo-358238.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Valley" className="rounded-3xl h-64 w-full object-cover" />
+              <img src={HimachalImg3} alt="Himalayas" className="rounded-3xl h-64 w-full object-cover" />
+              <img src={HimachalImg4} alt="Cottage" className="rounded-3xl h-64 w-full object-cover mt-8" />
+              <img src={HimachalImg5} alt="Shimla" className="rounded-3xl h-64 w-full object-cover -mt-8" />
+              <img src={HimachalImg2} alt="Valley" className="rounded-3xl h-64 w-full object-cover" />
             </div>
           </Reveal>
         </div>
       </section>
 
-      <section className="bg-forest-100/50 py-16">
-        <div className="container-px">
-          <Reveal><SectionHeading eyebrow="Our Values" title="What Drives Us" /></Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { icon: Heart, title: 'Genuine Hospitality', text: 'Every guest is family. We go beyond service to make you feel truly at home in the mountains.' },
-              { icon: Compass, title: 'Local Expertise', text: 'We live here. We know the trails, the people, and the stories that make each place special.' },
-              { icon: Award, title: 'Trusted Quality', text: 'Handpicked stays, reliable transport, and transparent pricing — every time, no surprises.' },
-            ].map((v, i) => (
-              <Reveal key={v.title} delay={i * 100}>
-                <div className="glass rounded-3xl p-7 text-center h-full">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-forest-600 to-forest-900 flex items-center justify-center mx-auto mb-4">
-                    <v.icon size={24} className="text-gold-300" />
-                  </div>
-                  <h3 className="text-lg font-serif font-semibold text-forest-900 mb-2">{v.title}</h3>
-                  <p className="text-sm text-forest-600">{v.text}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+  
 
       {/* ABOUT THE FOUNDER */}
       <section className="container-px py-20">
@@ -155,7 +152,6 @@ export function AboutPage() {
         <Reveal>
           <div className="mt-16 glass rounded-3xl p-8 md:p-10">
             <h3 className="text-xl font-serif font-semibold text-forest-900 mb-2 text-center">Connect with Aviral Jain</h3>
-            <p className="text-sm text-forest-500 text-center mb-8">Reach out directly for bookings, collaborations, or media enquiries.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {FOUNDER_SOCIALS.map((s) => (
                 <a
@@ -179,7 +175,7 @@ export function AboutPage() {
         </Reveal>
       </section>
 
-      <CtaBanner title="Come Visit Us in Shoghi" text="Experience Himalayan hospitality firsthand. We can't wait to welcome you." />
+      <CtaBanner title="Come Visit Us in Himachal and Uttarakhand" text="Experience Himalayan hospitality firsthand. We can't wait to welcome you." />
     </div>
   );
 }

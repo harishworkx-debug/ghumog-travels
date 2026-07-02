@@ -10,7 +10,7 @@ import rishikeshCampViewImage2 from '../assets/Rishikesh-Camping-Resorts/Rishike
 export const WHATSAPP = 'https://wa.me/917018939901?text=' + encodeURIComponent('Hello GhumoG Team,\nI would like to know more about your hotel stays and travel packages.');
 export const PHONE = '+91 7018939901';
 export const PHONE_TEL = 'tel:+917018939901';
-export const EMAIL = 'ghomogbharke@gmail.com';
+export const EMAIL = 'ghumog.com@gmail.com';
 export const MAP_LINK = 'https://maps.app.goo.gl/CM7wio4ofyCaGKY36';
 export const MAP_EMBED = 'https://www.google.com/maps?q=Shoghi,Shimla,Himachal+Pradesh&output=embed';
 

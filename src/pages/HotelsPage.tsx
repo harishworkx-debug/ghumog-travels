@@ -20,7 +20,7 @@ export function HotelsPage() {
     <div>
       <PageHero
         title="Our Hotels & Stays"
-        subtitle="Handpicked Himalayan properties — from cozy homestays to luxury cottages."
+        subtitle="We book your hotel within your budget."
         image="https://images.pexels.com/photos/261101/pexels-photo-261101.jpeg?auto=compress&cs=tinysrgb&w=1920"
         breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Hotels' }]}
       />
@@ -83,14 +83,6 @@ export function HotelCategoryPage({ slug }: { slug: string }) {
       />
 
       <section className="container-px py-16">
-        <div className="flex flex-wrap gap-3 mb-10">
-          {HOTEL_CATEGORIES.map((c) => (
-            <Link key={c.slug} to={`/hotels/${c.slug}`} className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${c.slug === slug ? 'bg-forest-800 text-white' : 'bg-forest-100 text-forest-700 hover:bg-forest-200'}`}>
-              {c.name}
-            </Link>
-          ))}
-        </div>
-
         {hotels.length === 0 ? (
           <div className="text-center py-20 text-forest-500">
             <p className="text-lg">More properties coming soon to {category.name}. Contact us for custom stays.</p>

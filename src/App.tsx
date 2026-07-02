@@ -92,7 +92,7 @@ const PRIVACY = [
   { heading: 'Information We Collect', body: 'We collect information you provide when booking — name, email, phone, and travel preferences. We also collect basic analytics to improve our services.' },
   { heading: 'How We Use Your Information', body: 'Your information is used solely to process bookings, communicate with you about your trip, and provide better service. We never sell your data to third parties.' },
   { heading: 'Data Security', body: 'We use industry-standard security measures to protect your personal information. Access is restricted to authorised team members only.' },
-  { heading: 'Your Rights', body: 'You may request access to, correction of, or deletion of your personal data at any time by contacting us at ghomogbharke@gmail.com.' },
+  { heading: 'Your Rights', body: 'You may request access to, correction of, or deletion of your personal data at any time by contacting us at ghumog.com@gmail.com.' },
 ];
 
 const TERMS = [
@@ -113,7 +113,7 @@ const REFUND = [
   { heading: 'Refund Timeline', body: 'Approved refunds are processed within 7-10 business days to the original payment method.' },
   { heading: 'Refund Method', body: 'Refunds are issued to the original payment method — UPI, bank transfer, or card.' },
   { heading: 'Non-Refundable Cases', body: 'No-shows, cancellations within 48 hours of check-in, and services already rendered are non-refundable.' },
-  { heading: 'Refund Queries', body: 'For any refund-related questions, contact us at ghomogbharke@gmail.com or +91 70189 39901.' },
+  { heading: 'Refund Queries', body: 'For any refund-related questions, contact us at ghumog.com@gmail.com or +91 70189 39901.' },
 ];
 
 export default function App() {

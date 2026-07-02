@@ -2,6 +2,7 @@ import { PageHero, CtaBanner, SectionHeading } from '../components/ui';
 import { Reveal } from '../components/Reveal';
 import { WHATSAPP } from '../lib/data';
 import { MapPin, Clock, Users, ArrowRight, Route, Fuel, ShieldCheck } from 'lucide-react';
+import TransportSolutions from '../assets/Transport-solutions.png'
 
 const TAXI = [
   { route: 'Shimla Local Sightseeing', duration: '8 hours', price: '₹2,500', seats: '4+1 Seater' },
@@ -25,7 +26,7 @@ export function OnlineTransportPage() {
       <PageHero
         title="Transport Solutions"
         subtitle="Taxis, bikes & scooty rentals for seamless Himalayan travel."
-        image="https://images.pexels.com/photos/2116475/pexels-photo-2116475.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        image={TransportSolutions}
         breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Transport Solutions' }]}
       />
 
