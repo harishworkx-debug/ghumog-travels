@@ -11,8 +11,8 @@ export const WHATSAPP = 'https://wa.me/917018939901?text=' + encodeURIComponent(
 export const PHONE = '+91 9319999913\n+91 7018939901\n+91 8679999913';
 export const PHONE_TEL = 'tel:+917018939901';
 export const EMAIL = 'ghumog.com@gmail.com';
-export const MAP_LINK = 'https://maps.app.goo.gl/CM7wio4ofyCaGKY36';
-export const MAP_EMBED = 'https://www.google.com/maps?q=Shoghi,Shimla,Himachal+Pradesh&output=embed';
+export const MAP_LINK = 'https://www.google.com/maps/place/Ghumog/@31.0433071,77.1162544,15z';
+export const MAP_EMBED = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6836.775235468282!2d77.11625441499316!3d31.04330709731706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39057fc4e72297f9%3A0x25917184f9f84837!2sGhumog!5e0!3m2!1sen!2sin!4v1783002252188!5m2!1sen!2sin';
 
 export const SOCIALS = [
   { name: 'YouTube', url: 'https://www.youtube.com/@ghumog', icon: 'youtube' },
