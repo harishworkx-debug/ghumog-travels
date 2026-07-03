@@ -10,28 +10,14 @@ export function RouterProvider({ children }: { children: ReactNode }) {
     return hashPath.startsWith('/') ? hashPath : `/${hashPath}`;
   };
 
-  const getFallbackPath = () => {
-    const stored = window.sessionStorage.getItem('ghumog_fallback_path');
-    const params = new URLSearchParams(window.location.search);
-    const fallback = stored ?? params.get('p');
-
-    if (fallback) {
-      const normalized = normalizePath(fallback);
-      window.sessionStorage.removeItem('ghumog_fallback_path');
-      if (window.location.pathname !== normalized) {
-        window.history.replaceState({}, '', normalized + window.location.hash);
-      }
-      return normalized;
-    }
-
+  const getInitialPath = () => {
     if (window.location.hash) {
       return normalizePath(window.location.hash.slice(1));
     }
-
     return window.location.pathname || '/';
   };
 
-  const [path, setPath] = useState(getFallbackPath);
+  const [path, setPath] = useState(getInitialPath);
 
   useEffect(() => {
     const onPopState = () => {
