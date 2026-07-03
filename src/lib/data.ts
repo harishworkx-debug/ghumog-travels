@@ -30,9 +30,9 @@ export const TAGLINES = {
 };
 
 export const HOTEL_CATEGORIES = [
-  { slug: 'himachal-pradesh', name: 'Himachal Pradesh', tagline: 'Misty mountains & pine forests' },
-  { slug: 'uttarakhand', name: 'Uttarakhand', tagline: 'Sacred rivers & Himalayan peaks' },
-  { slug: 'top-temples', name: 'Dharmik Yatra', tagline: 'Divine journeys & pilgrimages' },
+  { slug: 'himachal-pradesh', name: 'Himachal Pradesh', tagline: 'Misty mountains & pine forests', weatherQuery: 'Himachal Pradesh Weather' },
+  { slug: 'uttarakhand', name: 'Uttarakhand', tagline: 'Sacred rivers & Himalayan peaks', weatherQuery: 'Uttarakhand Weather' },
+  { slug: 'top-temples', name: 'Dharmik Yatra', tagline: 'Divine journeys & pilgrimages', weatherQuery: 'Char Dham Weather' },
 ];
 
 export type GalleryImage = { src: string; alt: string; category: string };

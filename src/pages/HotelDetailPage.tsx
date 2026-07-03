@@ -2,8 +2,8 @@ import { PageHero, CtaBanner } from '../components/ui';
 import { Reveal } from '../components/Reveal';
 import { Gallery } from '../components/Gallery';
 import { Link } from '../lib/router';
-import { HOTELS, WHATSAPP, PHONE_TEL, TAGLINES } from '../lib/data';
-import { Star, MapPin, Check, ArrowRight, Wifi, Coffee, Car, Flame, Mountain, Utensils, ShieldCheck, Home, Trees, Sparkles } from 'lucide-react';
+import { HOTELS, HOTEL_CATEGORIES, WHATSAPP, PHONE_TEL, TAGLINES } from '../lib/data';
+import { Star, MapPin, Check, ArrowRight, Wifi, Coffee, Car, Flame, Mountain, Utensils, ShieldCheck, Home, Trees, Sparkles, CloudSun } from 'lucide-react';
 
 const amenityIcon: Record<string, typeof Wifi> = {
   'Free WiFi': Wifi, 'Breakfast': Coffee, 'Parking': Car, 'Bonfire': Flame,
@@ -50,6 +50,24 @@ export function HotelDetailPage({ slug }: { slug: string }) {
                   <MapPin size={14} /> {hotel.location}
                 </div>
                 <div className="text-sm font-serif italic text-gold-700">{hotel.tagline}</div>
+              </div>
+              <div className="mb-8">
+                {(() => {
+                  const category = HOTEL_CATEGORIES.find((c) => c.slug === hotel.category);
+                  const query = category?.weatherQuery || `${hotel.location} Weather`;
+                  const label = category ? `Check ${query}` : `Check Weather`;
+                  return (
+                    <a
+                      href={`https://www.google.com/search?q=${encodeURIComponent(query)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-gold inline-flex items-center gap-2 text-sm"
+                    >
+                      <CloudSun size={18} />
+                      {label}
+                    </a>
+                  );
+                })()}
               </div>
               <p className="text-lg text-forest-700 leading-relaxed mb-8">{hotel.description}</p>
             </Reveal>
@@ -120,7 +138,7 @@ export function HotelDetailPage({ slug }: { slug: string }) {
                   </div>
                 </div>
 
-                <a href={WHATSAPP} target="_blank" rel="noreferrer" className="btn-gold w-full mb-3">
+                <a href={WHATSAPP} target="_blank" rel="noreferrer" className="btn-gold w-full mb-3 fs-16 flex items-center justify-cente">
                   Check Availability <ArrowRight size={16} />
                 </a>
                 <a href={PHONE_TEL} className="btn-outline w-full">Call to Book</a>
