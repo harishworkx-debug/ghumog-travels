@@ -5,6 +5,11 @@ import { Reveal } from '../components/Reveal';
 import { Link } from '../lib/router';
 import { HOTELS, HOTEL_CATEGORIES } from '../lib/data';
 import { Search } from 'lucide-react';
+import Himachal6 from '../assets/Himachal-pradesh6.png';
+import Himachal7 from '../assets/Himachal-pradesh7.png';
+import DharmikYatra from '../assets/Dharkmik-yatra2.png';
+import Uttarakhand1 from '../assets/Uttarakhand2.png';
+
 
 export function HotelsPage() {
   const [query, setQuery] = useState('');
@@ -21,7 +26,7 @@ export function HotelsPage() {
       <PageHero
         title="Our Hotels & Stays"
         subtitle="We book your hotel within your budget."
-        image="https://images.pexels.com/photos/261101/pexels-photo-261101.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        image={Himachal6}
         breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Hotels' }]}
       />
 
@@ -73,12 +78,18 @@ export function HotelCategoryPage({ slug }: { slug: string }) {
 
   if (!category) return null;
 
+  const categoryHeroImage = {
+    'himachal-pradesh': Himachal7,
+    'uttarakhand': Uttarakhand1,
+    'top-temples': DharmikYatra,
+  }[category.slug] || Himachal7;
+
   return (
     <div>
       <PageHero
         title={category.name}
         subtitle={category.tagline}
-        image="https://images.pexels.com/photos/803975/pexels-photo-803975.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        image={categoryHeroImage}
         breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Hotels', to: '/hotels' }, { label: category.name }]}
       />
 

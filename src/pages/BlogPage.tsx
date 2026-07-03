@@ -71,6 +71,9 @@ export function BlogDetailPage({ slug }: { slug: string }) {
                   {p}
                 </p>
               ))}
+              {blog.videoEmbed ? (
+                <div className="mt-10" dangerouslySetInnerHTML={{ __html: blog.videoEmbed }} />
+              ) : null}
             </div>
             <div className="mt-10 pt-6 border-t border-forest-100">
               <Link to="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-forest-700 hover:text-gold-600">
