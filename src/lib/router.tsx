@@ -11,14 +11,23 @@ export function RouterProvider({ children }: { children: ReactNode }) {
   };
 
   const getFallbackPath = () => {
+    const stored = window.sessionStorage.getItem('ghumog_fallback_path');
     const params = new URLSearchParams(window.location.search);
-    const fallback = params.get('p');
+    const fallback = stored ?? params.get('p');
+
     if (fallback) {
-      return normalizePath(fallback);
+      const normalized = normalizePath(fallback);
+      window.sessionStorage.removeItem('ghumog_fallback_path');
+      if (window.location.pathname !== normalized) {
+        window.history.replaceState({}, '', normalized + window.location.hash);
+      }
+      return normalized;
     }
+
     if (window.location.hash) {
       return normalizePath(window.location.hash.slice(1));
     }
+
     return window.location.pathname || '/';
   };
 
