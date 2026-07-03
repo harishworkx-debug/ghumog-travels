@@ -45,8 +45,8 @@ export function Navbar() {
         <nav className="container-px flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-forest-600 to-forest-900 p-[2px] shadow-lg group-hover:scale-110 transition-transform">
-              <div className="flex h-full w-full items-center justify-center rounded-[13px] bg-white/95">
+            <div className="w-11 h-11 rounded-2xl border from-forest-600 to-forest-900 p-[2px] shadow-lg group-hover:scale-110 transition-transform">
+              <div className="flex h-full w-full items-center justify-center rounded-[13px] bg-transparent">
                 <img
                   src="/favicon.png"
                   alt="GhumoG BharKe"
