@@ -3,6 +3,7 @@ import { Reveal } from '../components/Reveal';
 import { Link } from '../lib/router';
 import { BLOGS } from '../lib/data';
 import { Calendar, Clock, ArrowRight, ArrowLeft } from 'lucide-react';
+import hpTravel from '../assets/hp-Travel.jpg';
 
 export function BlogPage() {
   return (
@@ -10,7 +11,7 @@ export function BlogPage() {
       <PageHero
         title="Travel Journal"
         subtitle="Stories, guides and hidden gems from across the Himalayas."
-        image="https://images.pexels.com/photos/358238/pexels-photo-358238.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        image={hpTravel}
         breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Blog' }]}
       />
 

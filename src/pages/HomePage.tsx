@@ -4,16 +4,22 @@ import { HotelCard } from '../components/HotelCard';
 import { SectionHeading, CtaBanner } from '../components/ui';
 import { HOTELS, HOTEL_CATEGORIES, TESTIMONIALS, WHATSAPP, BLOGS, TAGLINES } from '../lib/data';
 import { ArrowRight, Star, MapPin, Play, ChevronLeft, ChevronRight, Quote, Mountain, Bus, Package, Compass, Trees, Sparkles, ShieldCheck, Home, Flame, Utensils, Car } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import HimachalImg from '../assets/Himachal-pradesh.png';
+import Himachal6 from '../assets/Himachal-pradesh6.png';
+import Himachal7 from '../assets/Himachal-pradesh7.png';
+import HpTravel from '../assets/hp-Travel.jpg';
 import Uttarakhand from '../assets/Uttarakhand.png';
+import Uttarakhand2 from '../assets/Uttarakhand2.png';
 import Dharkmikyatra from '../assets/Dharkmik-yatra.png';
 
 
 const HERO_SLIDES = [
-  'https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=1920',
-  'https://images.pexels.com/photos/358238/pexels-photo-358238.jpeg?auto=compress&cs=tinysrgb&w=1920',
-  'https://images.pexels.com/photos/803975/pexels-photo-803975.jpeg?auto=compress&cs=tinysrgb&w=1920',
+  Himachal6,
+  HpTravel,
+  Uttarakhand,
+  Himachal7,
+  Uttarakhand2,
 ];
 
 const SERVICES = [
@@ -36,6 +42,14 @@ export function HomePage() {
 
   const featured = HOTELS.slice(0, 6);
 
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setSlide((current) => (current + 1) % HERO_SLIDES.length);
+    }, 2500);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
   return (
     <div>
       {/* HERO */}
@@ -47,10 +61,10 @@ export function HomePage() {
               className="absolute inset-0 transition-opacity duration-1000"
               style={{ opacity: i === slide ? 1 : 0 }}
             >
-              <img src={s} alt="Himalayas" className="w-full h-full object-cover scale-105" />
+              <img src={s} alt="Himalayas" className="w-full h-full object-cover scale-105 brightness-90" />
             </div>
           ))}
-          <div className="absolute inset-0 bg-gradient-to-b from-forest-950/35 via-forest-900/20 to-forest-950/55" />
+          <div className="absolute inset-0 bg-gradient-to-b from-forest-950/80 via-forest-900/60 to-forest-950/90" />
         </div>
 
         {/* Floating decorative orbs */}
