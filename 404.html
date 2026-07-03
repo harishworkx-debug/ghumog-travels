@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <script>
+      const pathname = window.location.pathname;
+      const fallback = pathname === '/404.html' ? '/' : pathname;
+      const redirectUrl = '/index.html?p=' + encodeURIComponent(fallback + window.location.search + window.location.hash);
+      window.location.replace(redirectUrl);
+    </script>
+  </head>
+  <body>
+    Redirecting to the app...
+  </body>
+</html>

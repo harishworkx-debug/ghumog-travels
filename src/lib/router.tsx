@@ -10,12 +10,19 @@ export function RouterProvider({ children }: { children: ReactNode }) {
     return hashPath.startsWith('/') ? hashPath : `/${hashPath}`;
   };
 
-  const [path, setPath] = useState(() => {
+  const getFallbackPath = () => {
+    const params = new URLSearchParams(window.location.search);
+    const fallback = params.get('p');
+    if (fallback) {
+      return normalizePath(fallback);
+    }
     if (window.location.hash) {
       return normalizePath(window.location.hash.slice(1));
     }
     return window.location.pathname || '/';
-  });
+  };
+
+  const [path, setPath] = useState(getFallbackPath);
 
   useEffect(() => {
     const onPopState = () => {
