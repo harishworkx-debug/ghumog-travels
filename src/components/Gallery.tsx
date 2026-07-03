@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { X, ChevronLeft, ChevronRight, Grid2x2 } from 'lucide-react';
 import type { GalleryImage } from '../lib/data';
 
@@ -32,10 +33,8 @@ export function Gallery({ images, categories }: Props) {
       if (e.key === 'ArrowLeft') prev();
     };
     window.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
     return () => {
       window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
     };
   }, [lightbox, close, next, prev]);
 
@@ -90,14 +89,17 @@ export function Gallery({ images, categories }: Props) {
       </div>
 
       {/* Lightbox modal */}
-      {lightbox !== null && (
-        <div
-          className="fixed inset-0 z-[200] flex flex-col bg-black/90 backdrop-blur-sm"
-          onClick={close}
-        >
-          {/* Top bar */}
-          <div className="flex items-center justify-between px-4 py-3 shrink-0" onClick={(e) => e.stopPropagation()}>
-            <span className="text-white/60 text-sm font-medium">
+      {lightbox !== null && typeof document !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[9999]">
+          {/* overlay that scrolls when content is large */}
+          <div className="fixed inset-0 bg-black/95" onClick={close} />
+
+          {/* Top bar - fixed so it's always visible */}
+          <div
+            className="fixed top-0 left-0 right-0 z-[10000] flex items-center justify-between px-4 py-3 bg-black/70 backdrop-blur-md"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="text-white/80 text-sm font-medium">
               {lightbox + 1} / {filtered.length}
               <span className="ml-2 text-white/40 capitalize">· {filtered[lightbox].category}</span>
             </span>
@@ -110,51 +112,52 @@ export function Gallery({ images, categories }: Props) {
             </button>
           </div>
 
-          {/* Image area */}
-          <div className="flex-1 flex items-center justify-center relative min-h-0 px-14 md:px-20">
-            {/* Prev */}
-            <button
-              onClick={(e) => { e.stopPropagation(); prev(); }}
-              className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors duration-200 focus:outline-none z-10"
-              aria-label="Previous image"
-            >
-              <ChevronLeft size={26} />
-            </button>
+          {/* Scrollable content area */}
+          <div className="fixed inset-0 overflow-y-auto z-[9999]">
+            <div className="min-h-screen flex flex-col items-stretch pt-16 pb-20">
+              {/* Image area */}
+              <div className="flex-1 flex items-center justify-center relative px-4 md:px-20" onClick={(e) => e.stopPropagation()}>
+                <div className="relative w-full flex items-center justify-center">
+                  {/* Prev */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); prev(); }}
+                    className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors duration-200 focus:outline-none z-20 hidden md:flex"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft size={26} />
+                  </button>
 
-            {/* Main image */}
-            <div
-              className="flex items-center justify-center w-full h-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                key={filtered[lightbox].src}
-                src={filtered[lightbox].src}
-                alt={filtered[lightbox].alt}
-                className="max-w-full max-h-full object-contain rounded-lg select-none"
-                draggable={false}
-              />
+                  {/* Main image container */}
+                  <div className="flex-1 flex items-center justify-center overflow-hidden">
+                    <img
+                      key={filtered[lightbox].src}
+                      src={filtered[lightbox].src}
+                      alt={filtered[lightbox].alt}
+                      className="max-w-full max-h-[85vh] object-contain rounded-lg select-none"
+                      draggable={false}
+                    />
+                  </div>
+
+                  {/* Next */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); next(); }}
+                    className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors duration-200 focus:outline-none z-20 hidden md:flex"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight size={26} />
+                  </button>
+                </div>
+              </div>
             </div>
-
-            {/* Next */}
-            <button
-              onClick={(e) => { e.stopPropagation(); next(); }}
-              className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors duration-200 focus:outline-none z-10"
-              aria-label="Next image"
-            >
-              <ChevronRight size={26} />
-            </button>
           </div>
 
-          {/* Thumbnail strip */}
-          <div
-            className="shrink-0 px-4 py-3 flex gap-2 overflow-x-auto no-scrollbar"
-            onClick={(e) => e.stopPropagation()}
-          >
+          {/* Thumbnail strip fixed at bottom */}
+          <div className="fixed bottom-0 left-0 right-0 z-[10000] px-4 py-3 bg-black/70 backdrop-blur-md overflow-x-auto whitespace-nowrap no-scrollbar" onClick={(e) => e.stopPropagation()}>
             {filtered.map((img, i) => (
               <button
                 key={img.src + i}
                 onClick={() => setLightbox(i)}
-                className={`shrink-0 w-14 h-14 rounded-lg overflow-hidden border-2 transition-all duration-200 focus:outline-none ${
+                className={`inline-block mr-2 w-14 h-14 rounded-lg overflow-hidden border-2 transition-all duration-200 focus:outline-none ${
                   i === lightbox ? 'border-gold-400 opacity-100 scale-105' : 'border-transparent opacity-50 hover:opacity-80'
                 }`}
               >
@@ -162,7 +165,8 @@ export function Gallery({ images, categories }: Props) {
               </button>
             ))}
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   );
