@@ -5,19 +5,38 @@ type RouterCtx = { path: string; navigate: (to: string) => void };
 const Ctx = createContext<RouterCtx>({ path: '/', navigate: () => {} });
 
 export function RouterProvider({ children }: { children: ReactNode }) {
-  const [path, setPath] = useState(() => window.location.hash.slice(1) || '/');
+  const normalizePath = (url: string) => {
+    const hashPath = url.startsWith('#') ? url.slice(1) : url;
+    return hashPath.startsWith('/') ? hashPath : `/${hashPath}`;
+  };
+
+  const [path, setPath] = useState(() => {
+    if (window.location.hash) {
+      return normalizePath(window.location.hash.slice(1));
+    }
+    return window.location.pathname || '/';
+  });
 
   useEffect(() => {
-    const onHash = () => {
-      setPath(window.location.hash.slice(1) || '/');
+    const onPopState = () => {
+      if (window.location.hash) {
+        const legacy = normalizePath(window.location.hash.slice(1));
+        window.history.replaceState({}, '', legacy);
+        setPath(legacy);
+      } else {
+        setPath(window.location.pathname || '/');
+      }
       window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
     };
-    window.addEventListener('hashchange', onHash);
-    return () => window.removeEventListener('hashchange', onHash);
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
   }, []);
 
   const navigate = (to: string) => {
-    window.location.hash = to;
+    const normalized = to.startsWith('/') ? to : `/${to}`;
+    window.history.pushState({}, '', normalized);
+    setPath(normalized);
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
   };
 
   return <Ctx.Provider value={{ path, navigate }}>{children}</Ctx.Provider>;
@@ -29,7 +48,7 @@ export function Link({ to, className, children, onClick }: { to: string; classNa
   const { navigate } = useRouter();
   return (
     <a
-      href={`#${to}`}
+      href={to}
       className={className}
       onClick={(e) => {
         e.preventDefault();

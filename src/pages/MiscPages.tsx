@@ -2,6 +2,7 @@ import { PageHero, CtaBanner, SectionHeading } from '../components/ui';
 import { Reveal } from '../components/Reveal';
 import { FAQS } from '../lib/data';
 import { useState } from 'react';
+import { Link } from '../lib/router';
 import Himachalpradesh1 from '../assets/Himachal-pradesh1.png';
 import { ChevronDown, Mountain, Heart, Compass, Award, Phone, Mail, MessageCircle, Youtube, Facebook, Instagram, MapPin } from 'lucide-react';
 
@@ -249,7 +250,7 @@ export function NotFoundPage() {
         </div>
         <h1 className="text-6xl md:text-8xl font-serif font-bold text-forest-900 mb-3">404</h1>
         <p className="text-lg text-forest-600 mb-8">This trail leads nowhere. Let's get you back.</p>
-        <a href="#/" className="btn-gold">Back to Home</a>
+        <Link to="/" className="btn-gold">Back to Home</Link>
       </div>
     </section>
   );
