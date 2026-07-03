@@ -84,23 +84,9 @@ export function HotelDetailPage({ slug }: { slug: string }) {
               </div>
             </Reveal>
 
-            {/* Gallery */}
-            <Reveal>
-              <h2 className="text-2xl font-serif font-semibold text-forest-900 mb-2">Photo Gallery</h2>
-              <p className="text-sm text-forest-500 mb-6">Click any photo to view full screen · Use arrow keys to navigate · Click image to zoom</p>
-              <Gallery images={hotel.gallery} categories={hotel.galleryCategories} title={hotel.name} />
-            </Reveal>
-
-            {/* About */}
-            <Reveal>
-              <h2 className="text-2xl font-serif font-semibold text-forest-900 mb-5 mt-12">About This Stay</h2>
-              <div className="space-y-4 text-forest-700 leading-relaxed">
-                <p>Nestled in {hotel.location}, {hotel.name} offers a serene retreat far from the noise of city life. {hotel.tagline} — this is more than a slogan, it is how we host every guest.</p>
-                <p>Our property is designed for comfort and tranquility, with thoughtfully appointed rooms, attentive hospitality, and authentic local cuisine. Whether you're seeking adventure or simply a peaceful escape, {hotel.name} is your perfect Himalayan home base.</p>
-                <p>As part of the GhumoG family, we can arrange local sightseeing, trekking, taxi services, and bike rentals to make your stay effortless. {TAGLINES.family} — just ask, we're here to help you explore.</p>
-              </div>
-            </Reveal>
+          
           </div>
+          
 
           {/* Booking card */}
           <div className="lg:col-span-1">
@@ -144,6 +130,23 @@ export function HotelDetailPage({ slug }: { slug: string }) {
             </Reveal>
           </div>
         </div>
+
+          {/* Gallery */}
+            <Reveal>
+              <h2 className="text-2xl font-serif font-semibold text-forest-900 mb-2">Photo Gallery</h2>
+              <p className="text-sm text-forest-500 mb-6">Click any photo to view full screen · Use arrow keys to navigate · Click image to zoom</p>
+              <Gallery images={hotel.gallery} categories={hotel.galleryCategories} title={hotel.name} />
+            </Reveal>
+
+            {/* About */}
+            <Reveal>
+              <h2 className="text-2xl font-serif font-semibold text-forest-900 mb-5 mt-12">About This Stay</h2>
+              <div className="space-y-4 text-forest-700 leading-relaxed">
+                <p>Nestled in {hotel.location}, {hotel.name} offers a serene retreat far from the noise of city life. {hotel.tagline} — this is more than a slogan, it is how we host every guest.</p>
+                <p>Our property is designed for comfort and tranquility, with thoughtfully appointed rooms, attentive hospitality, and authentic local cuisine. Whether you're seeking adventure or simply a peaceful escape, {hotel.name} is your perfect Himalayan home base.</p>
+                <p>As part of the GhumoG family, we can arrange local sightseeing, trekking, taxi services, and bike rentals to make your stay effortless. {TAGLINES.family} — just ask, we're here to help you explore.</p>
+              </div>
+            </Reveal>
 
         {/* Related */}
         {related.length > 0 && (
