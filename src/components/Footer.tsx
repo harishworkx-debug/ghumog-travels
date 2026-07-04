@@ -77,6 +77,10 @@ export function Footer() {
             <Link to="/refund" className="hover:text-gold-300">Refund</Link>
           </div>
         </div>
+
+        <p className="mt-4 text-center text-xs text-white/60">
+          Powered by <a href="https://www.techhim.online/" target="_blank" rel="noreferrer" className="text-gold-300 hover:text-gold-200">TechHim Solutions</a>
+        </p>
       </div>
     </footer>
   );
