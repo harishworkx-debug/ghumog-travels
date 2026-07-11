@@ -40,7 +40,7 @@ export function HotelDetailPage({ slug }: { slug: string }) {
       {/* 1. CINEMATIC HERO */}
       <section className="relative h-[85vh] min-h-[600px] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src={hotel.image} alt={hotel.name} className="w-full h-full object-cover" />
+          <img src={hotel.image} alt={hotel.name} title={hotel.name} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-forest-900/90 via-forest-900/40 to-transparent"></div>
         </div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-20">
@@ -83,11 +83,11 @@ export function HotelDetailPage({ slug }: { slug: string }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mt-8">
           <div className="lg:col-span-7">
             <Reveal>
-              <h2 className="text-sm font-semibold uppercase tracking-widest text-gold-600 mb-2">Welcome</h2>
-              <h3 className="text-3xl md:text-4xl font-serif font-bold text-forest-900 mb-8">About {hotel.name}</h3>
+              <span className="block text-sm font-semibold uppercase tracking-widest text-gold-600 mb-2">Welcome</span>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-forest-900 mb-8">About {hotel.name}</h2>
               <div className="space-y-5 text-forest-700 text-lg leading-relaxed">
                 {hotel.longAbout ? (
-                  hotel.longAbout.map((para, i) => <p key={i}>{para}</p>)
+                  hotel.longAbout.map((para, i) => <p key={i} dangerouslySetInnerHTML={{ __html: para }} />)
                 ) : (
                   <p>{hotel.description}</p>
                 )}
@@ -97,7 +97,7 @@ export function HotelDetailPage({ slug }: { slug: string }) {
           <div className="lg:col-span-5">
             <Reveal delay={200}>
               <div className="glass bg-forest-50/50 p-8 rounded-3xl border border-forest-100 h-full">
-                <h4 className="text-2xl font-serif font-bold text-forest-900 mb-6">Why Stay Here?</h4>
+                <h3 className="text-2xl font-serif font-bold text-forest-900 mb-6">Why Stay Here?</h3>
                 <div className="space-y-4">
                   {(hotel.whyStayHere || hotel.highlights).map((reason, i) => (
                     <div key={i} className="flex items-start gap-4">
@@ -126,8 +126,8 @@ export function HotelDetailPage({ slug }: { slug: string }) {
           <div className="container-px">
             <Reveal>
               <div className="text-center max-w-3xl mx-auto mb-16">
-                <h2 className="text-sm font-semibold uppercase tracking-widest text-gold-400 mb-2">Accommodation</h2>
-                <h3 className="text-3xl md:text-4xl font-serif font-bold text-white mb-6">Our Rooms & Suites</h3>
+                <span className="block text-sm font-semibold uppercase tracking-widest text-gold-400 mb-2">Accommodation</span>
+                <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-6">Our Rooms & Suites</h2>
                 <p className="text-forest-200 text-lg">Designed for absolute comfort, offering a blend of modern amenities and traditional aesthetics.</p>
               </div>
             </Reveal>
@@ -137,12 +137,12 @@ export function HotelDetailPage({ slug }: { slug: string }) {
                 <Reveal key={i} delay={i * 100}>
                   <div className="flex flex-col lg:flex-row bg-forest-800 rounded-3xl overflow-hidden border border-forest-700 shadow-2xl">
                     <div className="lg:w-1/2 h-64 lg:h-auto relative">
-                      <img src={room.image || getRoomImage(i)} alt={`${room.name} at ${hotel.name}`} loading="lazy" className="w-full h-full object-cover" />
+                      <img src={room.image || getRoomImage(i)} alt={`${room.name} at ${hotel.name}`} title={`${room.name} at ${hotel.name}`} loading="lazy" className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-gradient-to-r from-forest-900/40 to-transparent"></div>
                     </div>
                     <div className="p-8 lg:p-12 lg:w-1/2 flex flex-col justify-center">
                       <div className="flex justify-between items-start mb-4">
-                        <h4 className="text-2xl md:text-3xl font-serif font-bold text-white">{room.name}</h4>
+                        <h3 className="text-2xl md:text-3xl font-serif font-bold text-white">{room.name}</h3>
                         <div className="flex items-center gap-1.5 bg-forest-700 px-3 py-1 rounded-full text-sm font-medium text-gold-300">
                           <Users size={16} /> {room.occupancy}
                         </div>
@@ -178,8 +178,8 @@ export function HotelDetailPage({ slug }: { slug: string }) {
       <section id="gallery" className="py-24 container-px">
         <Reveal>
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-sm font-semibold uppercase tracking-widest text-gold-600 mb-2">Discover</h2>
-            <h3 className="text-3xl md:text-4xl font-serif font-bold text-forest-900 mb-6">Photo Gallery</h3>
+            <span className="block text-sm font-semibold uppercase tracking-widest text-gold-600 mb-2">Discover</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-forest-900 mb-6">Photo Gallery</h2>
           </div>
           <Gallery images={hotel.gallery} categories={hotel.galleryCategories} title={hotel.name} />
         </Reveal>
@@ -192,7 +192,7 @@ export function HotelDetailPage({ slug }: { slug: string }) {
             
             {/* General Amenities */}
             <Reveal>
-              <h3 className="text-3xl font-serif font-bold text-forest-900 mb-8">Property Facilities</h3>
+              <h2 className="text-3xl font-serif font-bold text-forest-900 mb-8">Property Facilities</h2>
               <div className="grid grid-cols-2 gap-4">
                 {hotel.amenities.map((a) => {
                   const Icon = amenityIcon[a] || Check;
@@ -210,7 +210,7 @@ export function HotelDetailPage({ slug }: { slug: string }) {
             <div>
               {hotel.thingsToDo && hotel.thingsToDo.length > 0 && (
                 <Reveal delay={100}>
-                  <h3 className="text-3xl font-serif font-bold text-forest-900 mb-8">Things To Do</h3>
+                  <h2 className="text-3xl font-serif font-bold text-forest-900 mb-8">Things To Do</h2>
                   <div className="space-y-6">
                     {hotel.thingsToDo.map((thing, i) => (
                       <div key={i} className="flex items-start gap-4 bg-white p-5 rounded-2xl border border-forest-100 shadow-sm">
@@ -218,7 +218,7 @@ export function HotelDetailPage({ slug }: { slug: string }) {
                           <Check size={20} />
                         </div>
                         <div>
-                          <h4 className="font-bold text-forest-900 text-lg mb-1">{thing.name}</h4>
+                          <h3 className="font-bold text-forest-900 text-lg mb-1">{thing.name}</h3>
                           <p className="text-forest-600 leading-relaxed">{thing.description}</p>
                         </div>
                       </div>
@@ -237,8 +237,8 @@ export function HotelDetailPage({ slug }: { slug: string }) {
         <section id="location" className="py-24 container-px">
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-sm font-semibold uppercase tracking-widest text-gold-600 mb-2">Getting Here</h2>
-              <h3 className="text-3xl md:text-4xl font-serif font-bold text-forest-900">Location & Directions</h3>
+              <span className="block text-sm font-semibold uppercase tracking-widest text-gold-600 mb-2">Getting Here</span>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-forest-900">Location & Directions</h2>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -259,23 +259,23 @@ export function HotelDetailPage({ slug }: { slug: string }) {
                 <div>
                   <div className="flex items-center gap-3 text-gold-600 mb-3">
                     <MapPin size={24} />
-                    <h4 className="text-xl font-serif font-bold text-forest-900">Address</h4>
+                    <h3 className="text-xl font-serif font-bold text-forest-900">Address</h3>
                   </div>
                   <p className="text-forest-700 font-medium leading-relaxed">{hotel.locationDetails.address}</p>
                 </div>
                 
                 <div>
-                  <h4 className="font-bold text-forest-900 mb-2">Directions</h4>
+                  <h3 className="font-bold text-forest-900 mb-2">Directions</h3>
                   <p className="text-forest-600 text-sm leading-relaxed">{hotel.locationDetails.directions}</p>
                 </div>
                 
                 <div className="space-y-4 pt-6 border-t border-forest-100">
                   <div>
-                    <h4 className="text-xs font-bold uppercase text-forest-400 mb-1">Nearest Railway</h4>
+                    <span className="block text-xs font-bold uppercase text-forest-400 mb-1">Nearest Railway</span>
                     <p className="text-forest-800 font-medium">{hotel.locationDetails.railwayStation}</p>
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold uppercase text-forest-400 mb-1">Nearest Airport</h4>
+                    <span className="block text-xs font-bold uppercase text-forest-400 mb-1">Nearest Airport</span>
                     <p className="text-forest-800 font-medium">{hotel.locationDetails.airport}</p>
                   </div>
                 </div>
@@ -284,11 +284,11 @@ export function HotelDetailPage({ slug }: { slug: string }) {
 
             {hotel.nearbyAttractions && hotel.nearbyAttractions.length > 0 && (
               <div className="mt-16">
-                <h4 className="text-2xl font-serif font-bold text-forest-900 mb-8 text-center">Nearby Attractions</h4>
+                <h3 className="text-2xl font-serif font-bold text-forest-900 mb-8 text-center">Nearby Attractions</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {hotel.nearbyAttractions.map((attraction, i) => (
                     <div key={i} className="glass p-5 rounded-2xl border border-forest-100 text-center hover:-translate-y-1 transition-transform">
-                      <h5 className="font-bold text-forest-900 mb-1">{attraction.name}</h5>
+                      <h4 className="font-bold text-forest-900 mb-1">{attraction.name}</h4>
                       <span className="inline-block bg-gold-100 text-gold-800 text-xs px-2.5 py-1 rounded-full font-bold mb-3">{attraction.distance}</span>
                       <p className="text-xs text-forest-600 line-clamp-2">{attraction.description}</p>
                     </div>
@@ -309,7 +309,7 @@ export function HotelDetailPage({ slug }: { slug: string }) {
                 <div className="bg-gold-500 text-forest-900 font-bold px-4 py-2 rounded-xl text-xl flex items-center gap-2 mb-6">
                   {hotel.rating} <Star size={20} className="fill-forest-900" />
                 </div>
-                <h3 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">Guest Reviews</h3>
+                <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">Guest Reviews</h2>
                 <p className="text-forest-200 text-lg">See what our recent guests have to say about their experience.</p>
               </div>
               
@@ -340,8 +340,8 @@ export function HotelDetailPage({ slug }: { slug: string }) {
         <section id="faqs" className="py-24 container-px">
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-sm font-semibold uppercase tracking-widest text-gold-600 mb-2">Answers</h2>
-              <h3 className="text-3xl md:text-4xl font-serif font-bold text-forest-900">Frequently Asked Questions</h3>
+              <span className="block text-sm font-semibold uppercase tracking-widest text-gold-600 mb-2">Answers</span>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-forest-900">Frequently Asked Questions</h2>
             </div>
             <div className="max-w-4xl mx-auto">
               <FAQAccordion faqs={hotel.faqs} />
@@ -388,7 +388,7 @@ export function HotelDetailPage({ slug }: { slug: string }) {
               <Reveal key={h.slug} delay={i * 100}>
                 <Link to={`/hotels/${h.slug}`} className="group glass bg-white rounded-3xl overflow-hidden card-hover block border border-forest-100">
                   <div className="h-60 overflow-hidden relative">
-                    <img src={h.image} alt={h.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <img src={h.image} alt={h.name} title={h.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-forest-900 flex items-center gap-1 shadow-sm">
                       <Star size={12} className="fill-gold-500 text-gold-500" /> {h.rating}
                     </div>
@@ -422,7 +422,7 @@ export function HotelDetailPage({ slug }: { slug: string }) {
                 <Reveal key={blog.slug} delay={i * 100}>
                   <Link to={`/blog/${blog.slug}`} className="group glass bg-white rounded-3xl overflow-hidden card-hover block border border-forest-100">
                     <div className="h-48 overflow-hidden">
-                      <img src={blog.image} alt={blog.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                      <img src={blog.image} alt={blog.title} title={blog.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     </div>
                     <div className="p-6">
                       <div className="flex items-center gap-2 mb-3">

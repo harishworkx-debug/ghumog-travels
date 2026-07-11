@@ -60,15 +60,23 @@ export function generateMeta(hotel: Hotel) {
 // -----------------------------------------
 
 export function generateHotelSchema(hotel: Hotel, meta: ReturnType<typeof generateMeta>) {
-  return {
+  const schema: any = {
     "@context": "https://schema.org",
     "@type": "Hotel",
+    "@id": `${meta.url}#hotel`,
     "name": hotel.name,
     "description": meta.description,
     "image": meta.image,
     "url": meta.url,
     "telephone": "+917018939901",
     "priceRange": `₹${hotel.price} - ₹${hotel.price + 2000}`,
+    "checkinTime": "12:00:00",
+    "checkoutTime": "11:00:00",
+    "amenityFeature": hotel.amenities.map(a => ({
+      "@type": "LocationFeatureSpecification",
+      "name": a,
+      "value": true
+    })),
     "address": {
       "@type": "PostalAddress",
       "streetAddress": hotel.address,
@@ -87,12 +95,24 @@ export function generateHotelSchema(hotel: Hotel, meta: ReturnType<typeof genera
       "bestRating": "5"
     }
   };
+
+  if (hotel.reviews && hotel.reviews.length > 0) {
+    schema.aggregateRating = {
+      "@type": "AggregateRating",
+      "ratingValue": hotel.rating,
+      "reviewCount": hotel.reviews.length,
+      "bestRating": "5"
+    };
+  }
+
+  return schema;
 }
 
 export function generateLocalBusinessSchema(hotel: Hotel, meta: ReturnType<typeof generateMeta>) {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
+    "@id": `${meta.url}#localbusiness`,
     "name": hotel.name,
     "image": meta.image,
     "telephone": "+917018939901",
@@ -159,7 +179,8 @@ export function generateBreadcrumbSchema(hotel: Hotel, meta: ReturnType<typeof g
 export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
-    "@type": "TravelAgency",
+    "@type": ["Organization", "TravelAgency"],
+    "@id": `${DOMAIN}/#organization`,
     "name": "GhumoG",
     "url": DOMAIN,
     "logo": `${DOMAIN}/favicon.png`,

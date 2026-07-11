@@ -150,7 +150,15 @@ function toGallery(map: Record<string, string>, altPrefix: string): GalleryImage
       else if (/parking/i.test(base)) category = 'parking';
       else if (/pool/i.test(base)) category = 'pool';
       else if (/hotel-extier/i.test(base)) category = 'exterior';
-      return { src, alt: `${altPrefix} — ${base}`, category };
+      
+      let alt = altPrefix;
+      if (category === 'rooms') alt = `Luxury Room at ${altPrefix}`;
+      else if (category === 'exterior') alt = `Beautiful Exterior View of ${altPrefix}`;
+      else if (category === 'food') alt = `Delicious Dining and Food at ${altPrefix}`;
+      else if (category === 'parking') alt = `Secure Free Parking at ${altPrefix}`;
+      else if (category === 'pool') alt = `Swimming Pool at ${altPrefix}`;
+      
+      return { src, alt, category };
     });
 }
 
