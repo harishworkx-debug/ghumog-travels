@@ -30,44 +30,50 @@ const DESTINATIONS = extractSlugs(seoContent, 'DESTINATIONS');
 
 const DOMAIN = 'https://ghumog.com';
 
-let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>${DOMAIN}/</loc>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>${DOMAIN}/hotels</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>${DOMAIN}/blog</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-`;
+const sitemapUrls = new Map<string, { changefreq: string, priority: string }>();
+
+function addUrl(path: string, changefreq: string, priority: string) {
+  const loc = `${DOMAIN}${path}`;
+  if (!sitemapUrls.has(loc)) {
+    sitemapUrls.set(loc, { changefreq, priority });
+  }
+}
+
+// Add static pages
+addUrl('/', 'daily', '1.0');
+addUrl('/hotels', 'daily', '0.9');
+addUrl('/blog', 'daily', '0.9');
+
+const IGNORED_HOTEL_SLUGS = new Set(['exterior', 'rooms', 'food', 'parking', 'pool']);
 
 DESTINATIONS.forEach((slug) => {
-  xml += `  <url>\n    <loc>${DOMAIN}/destinations/${slug}</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
+  addUrl(`/destinations/${slug}`, 'weekly', '0.8');
 });
 
 CITIES.forEach((slug) => {
-  xml += `  <url>\n    <loc>${DOMAIN}/hotels/${slug}</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
+  addUrl(`/hotels/${slug}`, 'weekly', '0.8');
 });
 
 AREAS.forEach((slug) => {
-  xml += `  <url>\n    <loc>${DOMAIN}/hotels/${slug}</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
+  addUrl(`/hotels/${slug}`, 'weekly', '0.7');
 });
 
 HOTELS.forEach((slug) => {
-  xml += `  <url>\n    <loc>${DOMAIN}/hotels/${slug}</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.9</priority>\n  </url>\n`;
+  if (IGNORED_HOTEL_SLUGS.has(slug)) return;
+  addUrl(`/hotels/${slug}`, 'weekly', '0.9');
 });
 
 BLOGS.forEach((slug) => {
-  xml += `  <url>\n    <loc>${DOMAIN}/blog/${slug}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
+  addUrl(`/blog/${slug}`, 'monthly', '0.7');
 });
+
+let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+`;
+
+for (const [loc, data] of sitemapUrls.entries()) {
+  xml += `  <url>\n    <loc>${loc}</loc>\n    <changefreq>${data.changefreq}</changefreq>\n    <priority>${data.priority}</priority>\n  </url>\n`;
+}
 
 xml += `</urlset>`;
 
