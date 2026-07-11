@@ -1,18 +1,23 @@
 import { useEffect, useState } from 'react';
 import { Link, useRouter } from '../lib/router';
 import { HOTEL_CATEGORIES, WHATSAPP, PHONE_TEL } from '../lib/data';
-import { Menu, X, ChevronDown, Phone, Mountain, Home, Bus, Package, Newspaper, Video, Mail, Info } from 'lucide-react';
+
+import { Menu, X, ChevronDown, Phone, Mountain, Home, Bus, Newspaper, Map, Mail, Info } from 'lucide-react';
 
 const NAV = [
   { label: 'Home', to: '/', icon: Home },
   { label: 'Introduction', to: '/about', icon: Info },
   {
     label: 'Hotels', to: '/hotels', icon: Mountain, mega: true,
-    children: HOTEL_CATEGORIES.map((c) => ({ label: c.name, to: `/hotels/${c.slug}`, tagline: c.tagline })),
+    children: [
+      { label: 'Himachal Pradesh', to: '/hotels/himachal-pradesh', tagline: 'Misty mountains & pine forests' },
+      { label: 'Uttarakhand', to: '/hotels/uttarakhand', tagline: 'Sacred rivers & Himalayan peaks' },
+      { label: 'Dharmik Yatra', to: '/hotels/dharmik-yatra', tagline: 'Divine journeys & pilgrimages' },
+    ]
   },
   { label: 'Transport Solutions', to: '/online-transport', icon: Bus },
   { label: 'Travel Stories', to: '/blog', icon: Newspaper },
-  { label: 'Video Tour', to: '/video-tour', icon: Video },
+  { label: 'Video Tour', to: '/video-tour', icon: Map },
   { label: 'Contact Us', to: '/contact', icon: Mail },
 ];
 

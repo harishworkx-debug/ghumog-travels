@@ -1,15 +1,22 @@
+import { Suspense, lazy } from 'react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { RouterProvider, useRouter } from './lib/router';
 import { HomePage } from './pages/HomePage';
 import { HotelsPage, HotelCategoryPage } from './pages/HotelsPage';
-import { HotelDetailPage } from './pages/HotelDetailPage';
 import { OnlineTransportPage } from './pages/OnlineTransportPage';
 import { HotelAccessoriesPage } from './pages/HotelAccessoriesPage';
 import { BlogPage, BlogDetailPage } from './pages/BlogPage';
 import { VideoTourPage } from './pages/VideoTourPage';
 import { ContactPage } from './pages/ContactPage';
 import { AboutPage, FaqPage, PolicyPage, NotFoundPage } from './pages/MiscPages';
+import { HOTELS, HOTEL_CATEGORIES, WHATSAPP, PHONE_TEL } from './lib/data';
+import { CITIES, AREAS, DESTINATIONS } from './lib/seo-models';
+
+const HotelDetailPage = lazy(() => import('./pages/HotelDetailPage').then(m => ({ default: m.HotelDetailPage })));
+const CityPage = lazy(() => import('./pages/CityPage').then(m => ({ default: m.CityPage })));
+const AreaPage = lazy(() => import('./pages/AreaPage').then(m => ({ default: m.AreaPage })));
+const DestinationPage = lazy(() => import('./pages/DestinationPage').then(m => ({ default: m.DestinationPage })));
 
 function Routes() {
   const { path } = useRouter();
@@ -21,8 +28,18 @@ function Routes() {
       const slug = path.split('/hotels/')[1];
       const hotel = HOTELS.find((h) => h.slug === slug);
       if (hotel) return <HotelDetailPage slug={slug} />;
+      const city = CITIES.find((c) => c.slug === slug);
+      if (city) return <CityPage slug={slug} />;
+      const area = AREAS.find((a) => a.slug === slug);
+      if (area) return <AreaPage slug={slug} />;
       const cat = HOTEL_CATEGORIES.find((c) => c.slug === slug);
       if (cat) return <HotelCategoryPage slug={slug} />;
+      return <NotFoundPage />;
+    }
+    if (path.startsWith('/destinations/')) {
+      const slug = path.split('/destinations/')[1];
+      const destination = DESTINATIONS.find((d) => d.slug === slug);
+      if (destination) return <DestinationPage slug={slug} />;
       return <NotFoundPage />;
     }
     if (path === '/online-transport') return <OnlineTransportPage />;
@@ -40,17 +57,27 @@ function Routes() {
     return <NotFoundPage />;
   };
 
+  const isHotelLandingPage = (() => {
+    if (path.startsWith('/hotels/')) {
+      const slug = path.split('/hotels/')[1];
+      return HOTELS.some((h) => h.slug === slug);
+    }
+    return false;
+  })();
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-1">{render()}</main>
+    <div className="min-h-screen flex flex-col" style={{ scrollBehavior: 'smooth' }}>
+      {!isHotelLandingPage && <Navbar />}
+      <main className="flex-1">
+        <Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="w-8 h-8 border-4 border-gold-500 border-t-transparent rounded-full animate-spin"></div></div>}>
+          {render()}
+        </Suspense>
+      </main>
       <Footer />
       <FloatingButtons />
     </div>
   );
 }
-
-import { HOTELS, HOTEL_CATEGORIES, WHATSAPP, PHONE_TEL } from './lib/data';
 
 function FloatingButtons() {
   return (

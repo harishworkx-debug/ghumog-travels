@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { PageHero, CtaBanner } from '../components/ui';
 import { HotelCard } from '../components/HotelCard';
 import { Reveal } from '../components/Reveal';
-import { Link } from '../lib/router';
 import { HOTELS, HOTEL_CATEGORIES } from '../lib/data';
 import { Search } from 'lucide-react';
 import Himachal6 from '../assets/Himachal-pradesh6.png';

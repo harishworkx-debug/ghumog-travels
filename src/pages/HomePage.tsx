@@ -3,7 +3,7 @@ import { Reveal } from '../components/Reveal';
 import { HotelCard } from '../components/HotelCard';
 import { SectionHeading, CtaBanner } from '../components/ui';
 import { HOTELS, HOTEL_CATEGORIES, TESTIMONIALS, WHATSAPP, BLOGS, TAGLINES } from '../lib/data';
-import { ArrowRight, Star, MapPin, Play, ChevronLeft, ChevronRight, Quote, Mountain, Bus, Package, Compass, Trees, Sparkles, ShieldCheck, Home, Flame, Utensils, Car } from 'lucide-react';
+import { ArrowRight, Star, MapPin, Play, ChevronLeft, ChevronRight, Quote, Mountain, Bus, Package, Compass, Sparkles, Home } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import HimachalImg from '../assets/Himachal-pradesh.png';
 import Himachal6 from '../assets/Himachal-pradesh6.png';

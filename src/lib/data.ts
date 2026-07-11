@@ -13,6 +13,7 @@ import HatkotiTempleImage from '../assets/Blog-img/Hatkoti-Temple.png';
 import Uttarakhand from '../assets/Uttarakhand.png'
 import Himachal from '../assets/Himachal-pradesh6.png'
 import HiddenPlacesHimachal from '../assets/Himachal-pradesh5.png'
+import { HOTEL_SEO_DATA } from './hotel-seo-data';
 
 
 
@@ -47,10 +48,53 @@ export const HOTEL_CATEGORIES = [
 
 export type GalleryImage = { src: string; alt: string; category: string };
 
+export type Room = {
+  name: string;
+  image: string; // use a reference from the gallery if possible, or just string
+  description: string;
+  amenities: string[];
+  occupancy: string;
+  highlights: string[];
+};
+
+export type Attraction = {
+  name: string;
+  distance: string;
+  travelTime: string;
+  description: string;
+};
+
+export type ThingToDo = {
+  name: string;
+  description: string;
+};
+
+export type Review = {
+  author: string;
+  rating: number;
+  text: string;
+  date: string;
+};
+
+export type FAQ = {
+  question: string;
+  answer: string;
+};
+
 export type Hotel = {
   slug: string;
   name: string;
   category: string;
+  destinationSlug?: string;
+  citySlug?: string;
+  areaSlug?: string;
+  city: string;
+  state: string;
+  country: string;
+  area: string;
+  address: string;
+  latitude: number;
+  longitude: number;
   location: string;
   price: number;
   rating: number;
@@ -62,6 +106,30 @@ export type Hotel = {
   amenities: string[];
   gallery: GalleryImage[];
   galleryCategories: { slug: string; name: string }[];
+  
+  // SEO Landing Page Extensions
+  longAbout?: string[];
+  rooms?: Room[];
+  nearbyAttractions?: Attraction[];
+  thingsToDo?: ThingToDo[];
+  locationDetails?: {
+    mapEmbedUrl?: string;
+    address: string;
+    railwayStation: string;
+    airport: string;
+    busStand: string;
+    directions: string;
+  };
+  whyStayHere?: string[];
+  reviews?: Review[];
+  faqs?: FAQ[];
+  policies?: string[];
+  relatedBlogSlugs?: string[];
+  seo?: {
+    title: string;
+    description: string;
+    keywords: string;
+  };
 };
 
 // Dynamically import all images from the hotel asset folders.
@@ -95,6 +163,16 @@ export const HOTELS: Hotel[] = [
     slug: 'rishikesh-hotel-4u',
     name: 'Rishikesh Hotel 4U by GhumoG',
     category: 'uttarakhand',
+    destinationSlug: 'rishikesh',
+    citySlug: 'rishikesh',
+    areaSlug: 'tapovan',
+    city: 'Rishikesh',
+    state: 'Uttarakhand',
+    country: 'India',
+    area: 'Tapovan',
+    address: 'Tapovan, Badrinath Road, Rishikesh, Uttarakhand 249192',
+    latitude: 30.1264,
+    longitude: 78.3267,
     location: 'Tapovan, Rishikesh',
     price: 2200,
     rating: 4.8,
@@ -109,11 +187,22 @@ export const HOTELS: Hotel[] = [
       { slug: 'exterior', name: 'Exterior' },
       { slug: 'rooms', name: 'Rooms' },
     ],
+    ...HOTEL_SEO_DATA['rishikesh-hotel-4u'],
   },  
   {
     slug: 'hotel-rashal-stay',
     name: 'Hotel Rashal Stay by GhumoG',
     category: 'himachal-pradesh',
+    destinationSlug: 'shimla',
+    citySlug: 'shimla',
+    areaSlug: 'shoghi',
+    city: 'Shimla',
+    state: 'Himachal Pradesh',
+    country: 'India',
+    area: 'Shoghi',
+    address: 'Shoghi, Shimla, Himachal Pradesh 171219',
+    latitude: 31.0433,
+    longitude: 77.1163,
     location: 'Shoghi, Shimla',
     price: 2800,
     rating: 4.9,
@@ -130,11 +219,22 @@ export const HOTELS: Hotel[] = [
       { slug: 'food', name: 'Food Area' },
       { slug: 'parking', name: 'Parking Area' },
     ],
+    ...HOTEL_SEO_DATA['hotel-rashal-stay'],
   },
   {
     slug: 'rishikesh-camping-resorts',
     name: 'Rishikesh Camping Resorts by GhumoG',
     category: 'uttarakhand',
+    destinationSlug: 'rishikesh',
+    citySlug: 'rishikesh',
+    areaSlug: 'shivpuri',
+    city: 'Rishikesh',
+    state: 'Uttarakhand',
+    country: 'India',
+    area: 'Shivpuri',
+    address: 'Shivpuri, Badrinath Road, Rishikesh, Uttarakhand 249192',
+    latitude: 30.1345,
+    longitude: 78.3891,
     location: 'Shivpuri, Badrinath Road, Rishikesh',
     price: 1800,
     rating: 4.7,
@@ -150,11 +250,36 @@ export const HOTELS: Hotel[] = [
       { slug: 'rooms', name: 'Rooms' },
       { slug: 'pool', name: 'Swimming Pool' },
     ],
+    ...HOTEL_SEO_DATA['rishikesh-camping-resorts'],
   },
+];
+
+export type BlogCategory = {
+  slug: string;
+  name: string;
+  description: string;
+};
+
+export const BLOG_CATEGORIES: BlogCategory[] = [
+  { slug: 'hotels', name: 'Hotels', description: 'Discover the best stays across destinations.' },
+  { slug: 'travel-guides', name: 'Travel Guides', description: 'Complete itineraries and guides for your next trip.' },
+  { slug: 'adventure', name: 'Adventure', description: 'Thrilling activities and adventure sports.' },
+  { slug: 'camping', name: 'Camping', description: 'Experience the great outdoors with our camping guides.' },
+  { slug: 'pilgrimage', name: 'Pilgrimage', description: 'Spiritual journeys and holy destinations.' },
+  { slug: 'luxury-travel', name: 'Luxury Travel', description: 'Premium experiences and 5-star stays.' },
+  { slug: 'budget-travel', name: 'Budget Travel', description: 'Travel the world without breaking the bank.' },
+  { slug: 'weekend-trips', name: 'Weekend Trips', description: 'Quick getaways for your weekends.' },
+  { slug: 'road-trips', name: 'Road Trips', description: 'Scenic drives and road trip itineraries.' },
+  { slug: 'food', name: 'Food', description: 'Local cuisines, cafes, and restaurant recommendations.' },
+  { slug: 'local-experiences', name: 'Local Experiences', description: 'Dive deep into the culture and traditions.' }
 ];
 
 export type Blog = {
   slug: string;
+  categorySlug?: string;
+  relatedCitySlug?: string;
+  relatedAreaSlug?: string;
+  relatedDestinationSlug?: string;
   title: string;
   excerpt: string;
   image: string;
@@ -167,6 +292,9 @@ export type Blog = {
 export const BLOGS: Blog[] = [
   {
     slug: 'shikari-devi-mandir',
+    categorySlug: 'pilgrimage',
+    relatedCitySlug: 'shimla', // Just assigning placeholder relation for now
+    relatedDestinationSlug: 'shimla',
     title: 'Shikari Devi Mandir',
     excerpt: 'माँ शिकारी देवी के मंदिर की अनूठी कहानी, इतिहास और पहुँच से जुड़ी जानकारी।',
     image: shikariDeviTempleImage,
@@ -190,6 +318,9 @@ export const BLOGS: Blog[] = [
   },
   {
     slug: 'hatu-peak',
+    categorySlug: 'adventure',
+    relatedCitySlug: 'shimla',
+    relatedDestinationSlug: 'shimla',
     title: 'Hatu Temple (Narkanda) Himachal Pradesh',
     excerpt: 'हिमाचल के नर्कंडा में हाटू माता मंदिर और ऊँची चोटी का इतिहास व यात्रा विवरण।',
     image: HatuDeviTempleImage,
@@ -214,6 +345,8 @@ export const BLOGS: Blog[] = [
   },
   {
     slug: 'khajjiar',
+    categorySlug: 'travel-guides',
+    relatedCitySlug: 'shimla', // or dalhousie
     title: 'Khajjiar — The Mini Switzerland of India',
     excerpt: 'खज्जियार की प्रकृति, इतिहास और पर्यटन आकर्षण का विस्तृत परिचय।',
     image: KhajjiarLakeImage,
@@ -237,6 +370,9 @@ export const BLOGS: Blog[] = [
   },
   {
     slug: 'chail-palace',
+    categorySlug: 'heritage',
+    relatedCitySlug: 'shimla',
+    relatedDestinationSlug: 'shimla',
     title: 'Chail Palace (Chail) Himachal Pradesh',
     excerpt: 'चायल पैलेस की कहानी, इतिहास और चायल के आसपास घूमने लायक जगहें।',
     image: ChailPalaceImage,

@@ -4,7 +4,7 @@ import { FAQS } from '../lib/data';
 import { useState } from 'react';
 import { Link } from '../lib/router';
 import Himachalpradesh1 from '../assets/Himachal-pradesh1.png';
-import { ChevronDown, Mountain, Heart, Compass, Award, Phone, Mail, MessageCircle, Youtube, Facebook, Instagram, MapPin } from 'lucide-react';
+import { ChevronDown, Mountain, Phone, Mail, MessageCircle, Youtube, Facebook, Instagram, MapPin } from 'lucide-react';
 
 const AviralJain = '/images/founder/image.png';
 
